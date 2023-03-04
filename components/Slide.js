@@ -62,14 +62,15 @@ export default function Slide({ image,
 
         setTimeout(() => {
             setDownloadDataUrl(downloadCanvasRef.current.toDataURL());
-        }, 200)
+        }, 500)
     }
 
     useEffect(() => {
         if (downloadLinkRef.current) {
             downloadLinkRef.current.click();
+            setDownloadDataUrl(null);
         }
-    }, [downloadLinkRef.current])
+    }, [downloadDataUrl])
 
     return <>
         <canvas className="" ref={canvasRef} width={CONFIG.X / SCALE_FACTOR} height={CONFIG.Y / SCALE_FACTOR} />
