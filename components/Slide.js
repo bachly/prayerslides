@@ -21,7 +21,9 @@ const CONFIG = {
     surname3Y: 1025
 }
 
-export default function Slide({ image,
+export default function Slide({ 
+    id,
+    image,
     location1, location2, location3, nation1, nation2, nation3,
     name1, name2, name3,
     surname1, surname2, surname3 }) {
@@ -83,7 +85,7 @@ export default function Slide({ image,
             <div>{name2} - {location2} {nation2}</div>
             <div>{name3} - {location3} {nation3}</div>
         </div>
-        <a className="hidden" ref={downloadLinkRef} href={downloadDataUrl} download={`Prayer Slide ${name1}.jpeg`}>Download Link</a>
+        <a className="hidden" ref={downloadLinkRef} href={downloadDataUrl} download={`${id}. Prayer Slide ${name1}.jpeg`}>Download Link</a>
     </>
 }
 

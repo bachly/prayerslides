@@ -17,6 +17,7 @@ export default function Homepage() {
                         Slide {index + 1}.
                     </div>
                     <Slide
+                        id={slide.id}
                         image={slide.image}
                         location1={`${slide.location1}`}
                         location2={`${slide.location2}`}
