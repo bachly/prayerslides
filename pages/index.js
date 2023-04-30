@@ -1,3 +1,4 @@
+import React from "react";
 import Slide from "../components/Slide"
 import generateSlides from "../lib/generateSlides"
 
@@ -7,6 +8,30 @@ import group3 from "../public/files/group3.json";
 
 export default function Homepage() {
     const slides = generateSlides(group1, group2, group3)
+    const [downloaded, setDownloaded] = React.useState(null)
+
+    function markAsDownloaded(slideId) {
+        return (event) => {
+            event && event.preventDefault();
+            console.log(`Downloaded slide ${slideId}`)
+            setDownloaded({
+                [slideId]: true
+            })
+        }
+    }
+
+
+    React.useEffect(function readFromLocalStorage() {
+        const downloaded = JSON.parse(window.localStorage.getItem('downloaded'));
+        setDownloaded(downloaded);
+    }, [])
+
+    React.useEffect(function saveToLocalStorage() {
+        if (downloaded) {
+            window.localStorage.setItem('downloaded', JSON.stringify(downloaded));
+        }
+    }, [downloaded])
+
 
     return <div className="m-4">
         <h1 className="font-bold text-3xl mb-4">Prayer Slides for ~{(slides.length / 12).toFixed(0)} months (last update: 30/4/2023)</h1>
@@ -31,6 +56,8 @@ export default function Homepage() {
                         surname1={`${slide.surname1}`}
                         surname2={`${slide.surname2}`}
                         surname3={`${slide.surname3}`}
+                        isDownloaded={downloaded && downloaded[slide.id]}
+                        onDownload={markAsDownloaded(slide.id)}
                     />
                 </div>
             })}
