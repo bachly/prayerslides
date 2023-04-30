@@ -56,13 +56,19 @@
     {
         "names": "Luke & Sophie",
         "surname": "Munzone",
-        "location": "Revesby NSW",
-        "nation": "Australia"
+        "location": "Henderson",
+        "nation": "New Zealand"
     },
     {
         "names": "Malcolm & Fiona",
         "surname": "Anderson",
         "location": "Melrose Park NSW",
+        "nation": "Australia"
+    },
+    {
+        "names": "James & Pamela",
+        "surname": "Huynh",
+        "location": "Fairfield (Assist)",
         "nation": "Australia"
     },
     {
@@ -141,6 +147,24 @@
         "names": "Brenton & Mele",
         "surname": "Doyle",
         "location": "Redfern NSW",
+        "nation": "Australia"
+    },
+    {
+        "names": "Malachi & Abbey",
+        "surname": "Malavi",
+        "location": "Revesby NSW",
+        "nation": "Australia"
+    },
+    {
+        "names": "Mark & Hillary",
+        "surname": "Winder",
+        "location": "Goulburn NSW",
+        "nation": "Australia"
+    },
+    {
+        "names": "Taholo & Bronwyn",
+        "surname": "Renagi",
+        "location": "Grafton NSW",
         "nation": "Australia"
     }
 ]

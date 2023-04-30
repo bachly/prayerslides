@@ -9,7 +9,7 @@ export default function Homepage() {
     const slides = generateSlides(group1, group2, group3)
 
     return <div className="m-4">
-        <h1 className="font-bold text-3xl mb-4">Prayer Slides for ~{(slides.length / 12).toFixed(0)} months</h1>
+        <h1 className="font-bold text-3xl mb-4">Prayer Slides for ~{(slides.length / 12).toFixed(0)} months (last update: 30/4/2023)</h1>
         <div className="flex flex-wrap">
             {slides.map((slide, index) => {
                 return <div key={`slide=${index}`} className="slide bg-gray-100 mr-4 mb-4 pb-2">
