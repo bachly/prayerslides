@@ -42,7 +42,7 @@ export default function Homepage() {
                     <div className="text-2xl px-4 py-2">
                         Slide {index + 1}.
                     </div>
-                    <SlideImage
+                    <Slide
                         id={slide.id}
                         bgImageName={slide.bgImageName}
                         scale={1}
