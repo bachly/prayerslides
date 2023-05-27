@@ -1,3 +1,4 @@
+import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react"
 import { AiOutlineCheckCircle, AiOutlineDownload } from "react-icons/ai";
@@ -26,16 +27,38 @@ const CONFIG = {
 export default function Slide({
     id,
     bgImageName,
-    location1, location2, location3, nation1, nation2, nation3,
+    location1, location2, location3,
+    nation1, nation2, nation3,
     name1, name2, name3,
     surname1, surname2, surname3,
+    id1, id2, id3,
     onDownload,
-    isDownloaded
+    isDownloaded,
+    onUpdate
 }) {
     const canvasRef = useRef();
     const downloadCanvasRef = useRef();
     const downloadLinkRef = useRef();
     const [downloadDataUrl, setDownloadDataUrl] = useState(null);
+    const [fields, setFields] = useState({
+        location1, location2, location3,
+        nation1, nation2, nation3,
+        name1, name2, name3,
+        surname1, surname2, surname3,
+    })
+    const [isEditing, setIsEditing] = useState(true);
+
+    useEffect(() => {
+        setFields({
+            location1, location2, location3,
+            nation1, nation2, nation3,
+            name1, name2, name3,
+            surname1, surname2, surname3,
+        })
+    }, [location1, location2, location3,
+        nation1, nation2, nation3,
+        name1, name2, name3,
+        surname1, surname2, surname3,])
 
     useEffect(() => {
         const context = canvasRef.current.getContext("2d");
@@ -80,42 +103,131 @@ export default function Slide({
         }
     }, [downloadDataUrl])
 
-    return <>
+    function saveCouple1() {
+        return (event) => {
+            event && event.preventDefault();
+            onUpdate({
+                id: id1,
+                names: fields.name1,
+                surname: fields.surname1,
+                location: fields.location1,
+                nation: fields.nation1,
+            })
+        }
+    }
+
+    function saveCouple2() {
+        return (event) => {
+            event && event.preventDefault();
+            onUpdate({
+                id: id2,
+                names: fields.name2,
+                surname: fields.surname2,
+                location: fields.location2,
+                nation: fields.nation2,
+            })
+        }
+    }
+
+    function saveCouple3() {
+        return (event) => {
+            event && event.preventDefault();
+            onUpdate({
+                id: id3,
+                names: fields.name3,
+                surname: fields.surname3,
+                location: fields.location3,
+                nation: fields.nation3,
+            })
+        }
+    }
+
+    function updateField(fieldName) {
+        return (event) => {
+            event && event.preventDefault();
+            setFields({
+                ...fields,
+                [fieldName]: event.target.value
+            })
+        }
+    }
+
+    function toggleEdit() {
+        setIsEditing(!isEditing);
+    }
+
+    return <div className="shadow-xl rounded-xl overflow-hidden">
         <canvas className="" ref={canvasRef} width={CONFIG.X / SCALE_FACTOR} height={CONFIG.Y / SCALE_FACTOR} />
         <canvas className="hidden" ref={downloadCanvasRef} width={CONFIG.X} height={CONFIG.Y} />
-        <div className="px-4 py-2 flex justify-center items-center">
-            <button className={clsx("px-4 py-1 rounded-sm duration-300 transition",
-                isDownloaded ? "bg-green-100 border border-green-400 hover:bg-green-200" : "bg-neutral-200 border border-neutral-400 hover:bg-neutral-300")} onClick={handleDownload}>
-                {isDownloaded ?
-                    <div className="text-green-600 ml-2 text-sm flex items-center">
-                        Downloaded <AiOutlineCheckCircle size="20" className="ml-1" />
-                    </div> :
-                    <div className="text-neutral-800 ml-2 text-sm flex items-center">
-                        Download <AiOutlineDownload size="20" className="ml-1" />
-                    </div>
-                }
-            </button>
 
+        <div className="px-4 py-2 flex justify-between items-center bg-white shadow-inner">
+            <h1 className="text-2xl">Slide {id}.</h1>
+            <div className="flex items-center justify-end">
+                <button className={clsx("px-4 py-1 rounded-sm duration-300 transition",
+                    isDownloaded ? "border border-transparent hover:border hover:border-emerald-600" : "bg-neutral-200 border border-neutral-800 hover:bg-neutral-300")} onClick={handleDownload}>
+                    {isDownloaded ?
+                        <div className="text-emerald-600 ml-2 text-base flex items-center">
+                            Downloaded <AiOutlineCheckCircle size="20" className="ml-1" />
+                        </div> :
+                        <div className="text-neutral-800 ml-2 text-base flex items-center">
+                            Download <AiOutlineDownload size="20" className="ml-1" />
+                        </div>
+                    }
+                </button>
+
+                {/* <button
+                    className={clsx("ml-2 px-2 py-1 text-sm rounded-sm duration-300 transition bg-neutral-200 border border-neutral-800 hover:bg-neutral-300")}
+                    onClick={toggleEdit}>
+                    {isEditing ? <IconChevronUp size="20" /> : <IconChevronDown size="20" />}
+                </button> */}
+            </div>
         </div>
-        <div className="px-4">
-            <div className="flex items-center">
-                <img className="w-6 mr-2" src={`/img/flags/${nation1}.png`} />
-                {name1} {surname1} - {location1} {nation1}
+
+        {isEditing &&
+            <div className="py-2 px-4 bg-neutral-200">
+                <div className="flex flex-col">
+                    <form onSubmit={saveCouple1()} className="border-b border-neutral-400 pt-2">
+                        <div className="">
+                            <input value={fields.location1} onChange={updateField('location1')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.nation1} onChange={updateField('nation1')} className="px-2 bg-neutral-200 focus:bg-white" />
+                        </div>
+                        <div className="">
+                            <input disabled={true} value={fields.name1} onChange={updateField('name1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-500" />
+                            <input disabled={true} value={fields.surname1} onChange={updateField('surname1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-500" />
+                            <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
+                        </div>
+                    </form>
+                    <form onSubmit={saveCouple2()} className="border-b border-neutral-400 pt-2">
+                        <div className="">
+                            <input value={location2} onChange={updateField('location2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={nation2} onChange={updateField('nation2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                        </div>
+                        <div className="">
+                            <input value={name2} onChange={updateField('name2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={surname2} onChange={updateField('surname2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
+                        </div>
+                    </form>
+                    <form onSubmit={saveCouple3()}>
+                        <div className="">
+                            <input value={location3} onChange={updateField('location3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={nation3} onChange={updateField('nation3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                        </div>
+                        <div className="">
+                            <input value={name3} onChange={updateField('name3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={surname3} onChange={updateField('surname3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div className="flex items-center">
-                <img className="w-6 mr-2" src={`/img/flags/${nation2}.png`} />
-                {name2} {surname2} - {location2} {nation2}
-            </div>
-            <div className="flex items-center">
-                <img className="w-6 mr-2" src={`/img/flags/${nation3}.png`} />
-                {name3} {surname3} - {location3} {nation3}
-            </div>
-        </div>
+        }
+
         <a className="hidden"
             ref={downloadLinkRef}
             href={downloadDataUrl}
             download={`${id}. Prayer Slide ${name1}.jpeg`}>Download Link</a>
-    </>
+    </div>
 }
 
 function renderSlide({ context, scale = 1, fontSmall, fontLarge, bgImageName,

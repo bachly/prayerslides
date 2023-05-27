@@ -3,92 +3,107 @@
         "names": "Greg & Lisa",
         "surname": "Mitchell",
         "location": "Prescott",
-        "nation": "USA"
+        "nation": "USA",
+        "group": "national"
     },
     {
         "names": "Daryl & Jillian",
         "surname": "Elliott",
         "location": "Beechboro WA",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Phil & Annie",
         "surname": "Ouma",
         "location": "Ipswich",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Leonell & Jodie",
         "surname": "Leota",
         "location": "Thomastown",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Glenn & Sandra",
         "surname": "Anderson",
         "location": "Cockburn",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Doug & Anita",
         "surname": "Ponder",
         "location": "Browns Plains",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Howard & Linda",
         "surname": "Avice-Demay",
         "location": "Blackburn North",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Jed & Laura",
         "surname": "Hachem",
         "location": "Melton",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Samuel & Laura",
         "surname": "Biggins",
         "location": "Windsor Gardens",
         "nation": "Australia",
+        "group": "national",
         "_archived": true
     },
     {
         "names": "Jerome & Jess",
         "surname": "Brown",
         "location": "Redcliffe",
+        "group": "national",
         "nation": "Australia"
     },
     {
         "names": "Brad & Kaylah",
         "surname": "Buchanan",
         "location": "Melville",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Bob & Annette",
         "surname": "Burrows",
         "location": "Clayton",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Ronald & Kerry",
         "surname": "Chisholm",
         "location": "Midland",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Aaron & Jessie",
         "surname": "Cooke",
         "location": "Elizabeth",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Mike & Alina",
         "surname": "Cooke",
         "location": "Boxhill",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Rick & Lois",
@@ -100,19 +115,22 @@
         "names": "Greg & Debbie",
         "surname": "Haagensen",
         "location": "Victoria Park",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Eric & Kathy",
         "surname": "Dines",
         "location": "Joondalup",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Joe & Caroline",
         "surname": "Dines",
         "location": "Armadale",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Greg & Tina",
@@ -124,13 +142,15 @@
         "names": "Peter & Kerri",
         "surname": "Field",
         "location": "Strathpine",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Ash & TrisYn",
         "surname": "Adam",
         "location": "Strathpine (Assist)",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Neal & Fiona",
@@ -143,127 +163,148 @@
         "names": "Paul & Debbie",
         "surname": "Graham",
         "location": "Willeton",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Luke & Christy",
         "surname": "Haagensen",
         "location": "Beechboro (Assist)",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Sean and Alyvia",
         "surname": "Davies",
         "location": "Dandenong",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Fritz & Claudia",
         "surname": "Helg",
         "location": "Footscray (Assist)",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Jack & Melisa",
         "surname": "Hobbs",
         "location": "Clarkson",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Ben & Raj",
         "surname": "Shenton",
         "location": "Rockingham",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Adam & Wilma",
         "surname": "Jancec",
         "location": "Mandurah",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Brendan & Carolyn",
         "surname": "Jones",
         "location": "Bunbury",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Steve & Michele",
         "surname": "Kennaway",
         "location": "Townsville",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Scott & Lei",
         "surname": "Kennon",
         "location": "Caboolture",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Shane & Erin",
         "surname": "Listing",
         "location": "Geelong",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "David & Linda",
         "surname": "Ehlers",
         "location": "Kalgoorlie",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Brett & Christine",
         "surname": "Mason",
         "location": "Frankston",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "George & Mary",
         "surname": "Ouma",
         "location": "Salisbury",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Chris & Skye",
         "surname": "Plummer",
         "location": "Footscray",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Sean & Mary",
         "surname": "Reeves",
         "location": "Underwood",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Reuben & Danielle",
         "surname": "Ricciardi",
         "location": "Springfield",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Michael & Holly",
         "surname": "Rodriguez-Zapata",
         "location": "Helensvale",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Anthony & Tracy",
         "surname": "Ryan",
         "location": "Innaloo",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "James & Jane",
         "surname": "Allen",
         "location": "Enfield",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Darrin & Naomi",
         "surname": "Spruce",
         "location": "Bendigo",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Geoff & Miriam",
@@ -275,49 +316,57 @@
         "names": "Finn & Lilli",
         "surname": "Sundahl",
         "location": "Manjimup",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Kenan & Louise",
         "surname": "Tuteru",
         "location": "Werribee",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Paul & Angela",
         "surname": "Valentino",
         "location": "Mill Park",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Mike & Maria",
         "surname": "White",
         "location": "Launceston",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Moses & Corrie",
         "surname": "Keresoma",
         "location": "Beenleigh",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Mark & Robyn",
         "surname": "Woods",
         "location": "Darwin",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Brent & Sharni",
         "surname": "Underwood",
         "location": "Burnside",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Fred & Haley",
         "surname": "Prasad",
         "location": "Cairns",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Matt & Sue",
@@ -329,13 +378,15 @@
         "names": "Mario & Faith",
         "surname": "Tong",
         "location": "East Brisbane",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Liam & Fatu",
         "surname": "Halloran",
         "location": "Adelaide",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Liam & Fatu",
@@ -347,13 +398,15 @@
         "names": "Albert & Silvia",
         "surname": "Francesca",
         "location": "Mt Barker",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Abraham & Sarah",
         "surname": "Mbemap",
         "location": "Toowoomba",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Dylan & Aisha",
@@ -365,13 +418,15 @@
         "names": "Henry & Ivy",
         "surname": "Yeboah",
         "location": "Northam",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Mick & Debbie",
         "surname": "Listing",
         "location": "Beechboro",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Steve & Silvia",
@@ -383,24 +438,28 @@
         "names": "Dan & Natalie",
         "surname": "Villani",
         "location": "Beechboro",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Steve & Pauline",
         "surname": "Stephan",
         "location": "Footscray (Evangelist)",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     },
     {
         "names": "Paul & Penny",
         "surname": "Boddy",
         "location": "Norwich",
-        "nation": "England"
+        "nation": "England",
+        "group": "national"
     },
     {
         "names": "Bruce & Dale",
         "surname": "Callahan",
         "location": "Willeton",
-        "nation": "Australia"
+        "nation": "Australia",
+        "group": "national"
     }
 ]
