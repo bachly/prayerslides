@@ -100,15 +100,15 @@ export default function Slide({
         <div className="px-4">
             <div className="flex items-center">
                 <img className="w-6 mr-2" src={`/img/flags/${nation1}.png`} />
-                {name1} - {location1} {nation1}
+                {name1} {surname1} - {location1} {nation1}
             </div>
             <div className="flex items-center">
                 <img className="w-6 mr-2" src={`/img/flags/${nation2}.png`} />
-                {name2} - {location2} {nation2}
+                {name2} {surname2} - {location2} {nation2}
             </div>
             <div className="flex items-center">
                 <img className="w-6 mr-2" src={`/img/flags/${nation3}.png`} />
-                {name3} - {location3} {nation3}
+                {name3} {surname3} - {location3} {nation3}
             </div>
         </div>
         <a className="hidden"
