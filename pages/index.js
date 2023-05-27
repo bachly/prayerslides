@@ -36,7 +36,7 @@ export default function Homepage() {
 
     return <div className="m-4">
         <h1 className="font-bold text-3xl mb-4">Prayer Slides for ~{(slides.length / 12).toFixed(0)} months (last update: 27/05/2023)</h1>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="flex flex-wrap">
             {slides.map((slide, index) => {
                 return <div key={`slide=${index}`} className="slide bg-gray-100 mr-4 mb-4 pb-2">
                     <div className="text-2xl px-4 py-2">

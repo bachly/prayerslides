@@ -25,7 +25,7 @@ const CONFIG = {
 
 export default function Slide({
     id,
-    image,
+    bgImageName,
     location1, location2, location3, nation1, nation2, nation3,
     name1, name2, name3,
     surname1, surname2, surname3,
@@ -44,7 +44,7 @@ export default function Slide({
             scale: SCALE_FACTOR,
             fontSmall: "bold 8pt sans-serif",
             fontLarge: "bold 13pt sans-serif",
-            image,
+            bgImageName,
             location1, location2, location3,
             nation1, nation2, nation3,
             name1, name2, name3,
@@ -60,7 +60,7 @@ export default function Slide({
             scale: 1,
             fontSmall: "bold 31pt sans-serif",
             fontLarge: "bold 50pt sans-serif",
-            image,
+            bgImageName,
             location1, location2, location3,
             nation1, nation2, nation3,
             name1, name2, name3,
@@ -118,7 +118,7 @@ export default function Slide({
     </>
 }
 
-function renderSlide({ context, scale = 1, fontSmall, fontLarge, image,
+function renderSlide({ context, scale = 1, fontSmall, fontLarge, bgImageName,
     location1, location2, location3, nation1, nation2, nation3,
     name1, name2, name3,
     surname1, surname2, surname3 }) {
@@ -163,5 +163,5 @@ function renderSlide({ context, scale = 1, fontSmall, fontLarge, image,
         }
     }
 
-    img.src = image;
+    img.src = `/img/${bgImageName}.png`;
 }
