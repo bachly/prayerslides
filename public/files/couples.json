@@ -225,10 +225,11 @@
     },
     {
         "names": "Greg & Lisa",
+        "bgImageName": "GregLisa",
         "surname": "Mitchell",
         "location": "Prescott",
         "nation": "USA",
-        "group": "national"
+        "group": "local"
     },
     {
         "names": "Daryl & Jillian",
