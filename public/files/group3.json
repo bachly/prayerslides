@@ -186,6 +186,12 @@
         "nation": "England"
     },
     {
+        "names": "Steve & Lisa",
+        "surname": "Gabriel",
+        "location": "Waltham Forest (Evangelist)",
+        "nation": "England"
+    },
+    {
         "names": "Adam & Jane",
         "surname": "Woods",
         "location": "Ho Chi Minh City",
@@ -200,7 +206,7 @@
     {
         "names": "Bobby & Zara",
         "surname": "Wood",
-        "location": "Bougainville",
+        "location": "Buka Bougainville",
         "nation": "PNG"
     },
     {
@@ -238,5 +244,11 @@
         "surname": "Cruz",
         "location": "Hangzhou",
         "nation": "China"
+    },
+    {
+        "names": " Joel and Lyndsay",
+        "surname": "Anderson",
+        "location": "Manado North Sulawesi",
+        "nation": "Indonesia"
     }
 ]

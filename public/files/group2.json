@@ -98,7 +98,7 @@
     },
     {
         "names": "Greg & Debbie",
-        "surname": "Davies",
+        "surname": "Haagensen",
         "location": "Victoria Park",
         "nation": "Australia"
     },
@@ -127,6 +127,12 @@
         "nation": "Australia"
     },
     {
+        "names": "Ash & TrisYn",
+        "surname": "Adam",
+        "location": "Strathpine (Assist)",
+        "nation": "Australia"
+    },
+    {
         "names": "Neal & Fiona",
         "surname": "Goodlet",
         "location": "Gosnells",
@@ -142,6 +148,12 @@
     {
         "names": "Luke & Christy",
         "surname": "Haagensen",
+        "location": "Beechboro (Assist)",
+        "nation": "Australia"
+    },
+    {
+        "names": "Sean and Alyvia",
+        "surname": "Davies",
         "location": "Dandenong",
         "nation": "Australia"
     },
@@ -376,7 +388,7 @@
     {
         "names": "Steve & Pauline",
         "surname": "Stephan",
-        "location": "Footscray",
+        "location": "Footscray (Evangelist)",
         "nation": "Australia"
     },
     {
@@ -390,11 +402,5 @@
         "surname": "Callahan",
         "location": "Willeton",
         "nation": "Australia"
-    },
-    {
-        "names": "Steve & Lisa",
-        "surname": "Gabriel",
-        "location": "Waltham Forest",
-        "nation": "England"
     }
 ]
