@@ -5,6 +5,7 @@ import generateSlides from "../lib/generateSlides"
 import group1 from "../public/files/group1.json";
 import group2 from "../public/files/group2.json";
 import group3 from "../public/files/group3.json";
+import SlideImage from "../components/SlideImage";
 
 export default function Homepage() {
     const slides = generateSlides(group1, group2, group3)
@@ -15,11 +16,11 @@ export default function Homepage() {
             event && event.preventDefault();
             console.log(`Downloaded slide ${slideId}`)
             setDownloaded({
+                ...downloaded,
                 [slideId]: true
             })
         }
     }
-
 
     React.useEffect(function readFromLocalStorage() {
         const downloaded = JSON.parse(window.localStorage.getItem('downloaded'));
@@ -34,16 +35,17 @@ export default function Homepage() {
 
 
     return <div className="m-4">
-        <h1 className="font-bold text-3xl mb-4">Prayer Slides for ~{(slides.length / 12).toFixed(0)} months (last update: 30/4/2023)</h1>
-        <div className="flex flex-wrap">
+        <h1 className="font-bold text-3xl mb-4">Prayer Slides for ~{(slides.length / 12).toFixed(0)} months (last update: 27/05/2023)</h1>
+        <div className="grid grid-cols-4 gap-4">
             {slides.map((slide, index) => {
                 return <div key={`slide=${index}`} className="slide bg-gray-100 mr-4 mb-4 pb-2">
                     <div className="text-2xl px-4 py-2">
                         Slide {index + 1}.
                     </div>
-                    <Slide
+                    <SlideImage
                         id={slide.id}
-                        image={slide.image}
+                        bgImageName={slide.bgImageName}
+                        scale={1}
                         location1={`${slide.location1}`}
                         location2={`${slide.location2}`}
                         location3={`${slide.location3}`}
