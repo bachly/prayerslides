@@ -199,23 +199,23 @@ export default function Slide({
                     </form>
                     <form onSubmit={saveCouple2()} className="border-b border-neutral-400 pt-2">
                         <div className="">
-                            <input value={location2} onChange={updateField('location2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
-                            <input value={nation2} onChange={updateField('nation2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.location2} onChange={updateField('location2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.nation2} onChange={updateField('nation2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
                         </div>
                         <div className="">
-                            <input value={name2} onChange={updateField('name2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
-                            <input value={surname2} onChange={updateField('surname2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.name2} onChange={updateField('name2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.surname2} onChange={updateField('surname2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
                             <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
                         </div>
                     </form>
                     <form onSubmit={saveCouple3()}>
                         <div className="">
-                            <input value={location3} onChange={updateField('location3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
-                            <input value={nation3} onChange={updateField('nation3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.location3} onChange={updateField('location3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.nation3} onChange={updateField('nation3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
                         </div>
                         <div className="">
-                            <input value={name3} onChange={updateField('name3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
-                            <input value={surname3} onChange={updateField('surname3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.name3} onChange={updateField('name3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input value={fields.surname3} onChange={updateField('surname3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
                             <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
                         </div>
                     </form>
