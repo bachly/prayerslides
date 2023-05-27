@@ -109,18 +109,20 @@ export default function Homepage() {
     }
 
     return <div className="">
-        <div className="flex items-start bg-gray-200">
+        <div className="flex items-start bg-neutral-900">
             <main className="flex-1">
-                <div className="bg-white/60 py-4 px-12 backdrop-blur-lg fixed top-0 left-0 w-full">
+                <div className="bg-neutral-900/60 py-4 px-12 backdrop-blur-lg fixed top-0 left-0 w-full">
                     <div className="flex items-center justify-between">
-                        <h1 className="font-bold text-neutral-700 text-3xl">
-                            Prayer Slides for ~{slides && (slides.length / 12).toFixed(0)} months
-                            (last update: 27/05/2023)
-                        </h1>
-                        <button className="hover:underline" onClick={resetToDefault()}>Reset to default</button>
+                        <div>
+                            <div className="font-bold text-neutral-200 text-2xl">
+                                Prayer Slides for ~{slides && (slides.length / 12).toFixed(0)} months
+                            </div>
+                            <div className="text-base text-neutral-400">Last update: 27/05/2023</div>
+                        </div>
+                        <button className="text-red-500 hover:underline" onClick={resetToDefault()}>Reset to default</button>
                     </div>
                 </div>
-                <div className="mt-12 p-12 flex flex-wrap justify-center">
+                <div className="mt-20 p-8 flex flex-wrap justify-center">
                     {slides && slides.map((slide, index) => {
                         return <div key={`slide=${index}`} className="mr-12 mb-12">
                             <Slide
