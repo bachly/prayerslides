@@ -117,7 +117,7 @@ export default function Homepage() {
                             <div className="font-bold text-neutral-200 text-2xl">
                                 Prayer Slides for ~{slides && (slides.length / 12).toFixed(0)} months
                             </div>
-                            <div className="text-base text-neutral-400">Last update: 27/05/2023</div>
+                            <div className="text-base text-neutral-400">Last update: 22/06/2023</div>
                         </div>
                         <button className="text-red-500 hover:underline" onClick={resetToDefault()}>Reset to default</button>
                     </div>
