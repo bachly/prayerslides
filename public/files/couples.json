@@ -8,6 +8,14 @@
         "group": "local"
     },
     {
+        "names": "David & Sam",
+        "bgImageName": "DavidSam",
+        "surname": "Walsh",
+        "location": "Parramatta NSW (Assist)",
+        "nation": "Australia",
+        "group": "local"
+    },
+    {
         "names": "Pat & Kathy",
         "bgImageName": "PatKathy",
         "surname": "Edwards",
@@ -91,7 +99,7 @@
         "names": "James & Pamela",
         "bgImageName": "JamesPamela",
         "surname": "Huynh",
-        "location": "Fairfield (Assist)",
+        "location": "MacArthur",
         "nation": "Australia",
         "group": "local"
     },
@@ -123,7 +131,7 @@
         "names": "John & Jade",
         "bgImageName": "JohnJade",
         "surname": "Hoang",
-        "location": "Penrith NSW",
+        "location": "Fairfield (Assist)",
         "nation": "Australia",
         "group": "local"
     },
@@ -144,9 +152,9 @@
         "group": "local"
     },
     {
-        "names": "Peter & Adelina",
-        "bgImageName": "PeterAdelina",
-        "surname": "Staples",
+        "names": "Stuart & Jen",
+        "bgImageName": "StuartJen",
+        "surname": "Leggett",
         "location": "Newcastle NSW",
         "nation": "Australia",
         "group": "local"
@@ -229,6 +237,14 @@
         "surname": "Mitchell",
         "location": "Prescott",
         "nation": "USA",
+        "group": "local"
+    },
+    {
+        "names": "Jacob & Eliza",
+        "bgImageName": "JacobEliza",
+        "surname": "Winterstein",
+        "location": "Moorebank NSW",
+        "nation": "Australia",
         "group": "local"
     },
     {
