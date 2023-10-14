@@ -115,9 +115,9 @@
         "names": "Luke & Nat",
         "bgImageName": "LukeNat",
         "surname": "Smith",
-        "location": "Macarthur NSW",
-        "nation": "Australia",
-        "group": "local"
+        "location": "Quatre Bornes",
+        "nation": "Mauritius",
+        "group": "international"
     },
     {
         "names": "Adrian & Tash",
@@ -863,8 +863,8 @@
         "group": "international"
     },
     {
-        "names": "Perry & Penny",
-        "surname": "Noah",
+        "names": "Mark & Robyn",
+        "surname": "Woods",
         "location": "Port Moresby",
         "nation": "PNG",
         "group": "international"
@@ -989,7 +989,7 @@
         "group": "international"
     },
     {
-        "names": "Joel and Lyndsay",
+        "names": "Joel & Lyndsay",
         "surname": "Anderson",
         "location": "Manado North Sulawesi",
         "nation": "Indonesia",
