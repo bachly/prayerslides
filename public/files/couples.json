@@ -407,7 +407,7 @@
         "group": "national"
     },
     {
-        "names": "Sean and Alyvia",
+        "names": "Sean & Alyvia",
         "surname": "Davies",
         "location": "Dandenong",
         "nation": "Australia",
@@ -456,8 +456,8 @@
         "group": "national"
     },
     {
-        "names": "Scott & Lei",
-        "surname": "Kennon",
+        "names": "Stef & Amy",
+        "surname": "Adam",
         "location": "Caboolture",
         "nation": "Australia",
         "group": "national"
@@ -505,9 +505,16 @@
         "group": "national"
     },
     {
+        "names": "Christian & Anna",
+        "surname": "Roennfeldt",
+        "location": "Springfield",
+        "nation": "Australia",
+        "group": "national"
+    },
+    {
         "names": "Reuben & Danielle",
         "surname": "Ricciardi",
-        "location": "Springfield",
+        "location": "Geraldton",
         "nation": "Australia",
         "group": "national"
     },
@@ -581,8 +588,8 @@
         "group": "national"
     },
     {
-        "names": "Mark & Robyn",
-        "surname": "Woods",
+        "names": "Glenn & Jess",
+        "surname": "Plummer",
         "location": "Darwin",
         "nation": "Australia",
         "group": "national"
