@@ -92,21 +92,21 @@ export default function Homepage() {
         })
     }
 
-    function resetToDefault() {
-        return event => {
-            event && event.preventDefault();
-            const couplesDict = {}
-            defaultCouples.forEach((couple) => {
-                const id = nanoid();
-                couplesDict[id] = {
-                    ...couple,
-                    id
-                };
-            });
-            setCouples(couplesDict);
-            setDownloaded({});
-        }
-    }
+    // function resetToDefault() {
+    //     return event => {
+    //         event && event.preventDefault();
+    //         const couplesDict = {}
+    //         defaultCouples.forEach((couple) => {
+    //             const id = nanoid();
+    //             couplesDict[id] = {
+    //                 ...couple,
+    //                 id
+    //             };
+    //         });
+    //         setCouples(couplesDict);
+    //         setDownloaded({});
+    //     }
+    // }
 
     return <div className="">
         <div className="flex items-start bg-neutral-900">
@@ -119,7 +119,6 @@ export default function Homepage() {
                             </div>
                             <div className="text-base text-neutral-400">Last update: 22/06/2023</div>
                         </div>
-                        <button className="text-red-500 hover:underline" onClick={resetToDefault()}>Reset to default</button>
                     </div>
                 </div>
                 <div className="mt-20 p-8 flex flex-wrap justify-center">
