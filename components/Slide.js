@@ -174,19 +174,13 @@ export default function Slide({
                         </div>
                     }
                 </button>
-
-                {/* <button
-                    className={clsx("ml-2 px-2 py-1 text-sm rounded-sm duration-300 transition bg-neutral-200 border border-neutral-800 hover:bg-neutral-300")}
-                    onClick={toggleEdit}>
-                    {isEditing ? <IconChevronUp size="20" /> : <IconChevronDown size="20" />}
-                </button> */}
             </div>
         </div>
 
         {isEditing &&
             <div className="py-2 px-2 bg-neutral-200">
                 <div className="flex flex-col">
-                    <form onSubmit={saveCouple1()} className="border-b border-neutral-400 pt-2">
+                    <form onSubmit={saveCouple1()} className="border-b border-neutral-400 pt-2 pb-2">
                         <div className="">
                             <input value={fields.location1} onChange={updateField('location1')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
                             <input value={fields.nation1} onChange={updateField('nation1')} className="px-2 bg-neutral-200 focus:bg-white" />
@@ -194,7 +188,7 @@ export default function Slide({
                         <div className="">
                             <input disabled={true} value={fields.name1} onChange={updateField('name1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
                             <input disabled={true} value={fields.surname1} onChange={updateField('surname1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
-                            <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
+                            {/* <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button> */}
                         </div>
                     </form>
                     <form onSubmit={saveCouple2()} className="border-b border-neutral-400 pt-2">
@@ -243,9 +237,9 @@ function renderSlide({ context, scale = 1, fontSmall, fontLarge, bgImageName,
         // locations
         context.font = fontSmall;
         context.fillStyle = "white";
-        context.fillText(`${location1} ${nation1}`.toUpperCase(), CONFIG.locationX / scale, CONFIG.location1Y / scale);
-        context.fillText(`${location2} ${nation2}`.toUpperCase(), CONFIG.locationX / scale, CONFIG.location2Y / scale);
-        context.fillText(`${location3} ${nation3}`.toUpperCase(), CONFIG.locationX / scale, CONFIG.location3Y / scale);
+        context.fillText(`${location1}, ${nation1}`.toUpperCase(), CONFIG.locationX / scale, CONFIG.location1Y / scale);
+        context.fillText(`${location2}, ${nation2}`.toUpperCase(), CONFIG.locationX / scale, CONFIG.location2Y / scale);
+        context.fillText(`${location3}, ${nation3}`.toUpperCase(), CONFIG.locationX / scale, CONFIG.location3Y / scale);
 
         // names
         context.font = fontLarge;

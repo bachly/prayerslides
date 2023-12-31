@@ -5,6 +5,8 @@ import defaultCouples from "../public/files/couples.json"
 import { nanoid } from "nanoid";
 import _ from "underscore";
 
+const LAST_UPDATE = "31/12/2023";
+
 export default function Homepage() {
     const [couples, setCouples] = React.useState();
     const [downloaded, setDownloaded] = React.useState(null);
@@ -25,7 +27,7 @@ export default function Homepage() {
         const downloaded = JSON.parse(window.localStorage.getItem('downloaded'));
         setDownloaded(downloaded);
 
-        const couplesFromLocalStorage = JSON.parse(window.localStorage.getItem('couples'));
+        const couplesFromLocalStorage = null // JSON.parse(window.localStorage.getItem('couples'));
 
         if (couplesFromLocalStorage) {
             setCouples(couplesFromLocalStorage);
@@ -92,22 +94,6 @@ export default function Homepage() {
         })
     }
 
-    // function resetToDefault() {
-    //     return event => {
-    //         event && event.preventDefault();
-    //         const couplesDict = {}
-    //         defaultCouples.forEach((couple) => {
-    //             const id = nanoid();
-    //             couplesDict[id] = {
-    //                 ...couple,
-    //                 id
-    //             };
-    //         });
-    //         setCouples(couplesDict);
-    //         setDownloaded({});
-    //     }
-    // }
-
     return <div className="">
         <div className="flex items-start bg-neutral-900">
             <main className="flex-1">
@@ -117,7 +103,7 @@ export default function Homepage() {
                             <div className="font-bold text-neutral-200 text-2xl">
                                 Prayer Slides for ~{slides && (slides.length / 12).toFixed(0)} months
                             </div>
-                            <div className="text-base text-neutral-400">Last update: 22/06/2023</div>
+                            <div className="text-base text-neutral-400">Last update: {LAST_UPDATE}</div>
                         </div>
                     </div>
                 </div>

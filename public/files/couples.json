@@ -3,7 +3,7 @@
         "names": "Pr Walsh & Ann",
         "bgImageName": "PrWalshAnn",
         "surname": "",
-        "location": "Parramatta NSW",
+        "location": "Parramatta, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -11,7 +11,7 @@
         "names": "David & Sam",
         "bgImageName": "DavidSam",
         "surname": "Walsh",
-        "location": "Parramatta NSW (Assist)",
+        "location": "Parramatta (Assist), NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -27,7 +27,7 @@
         "names": "Cory & Sharon",
         "bgImageName": "CorySharon",
         "surname": "Bourne",
-        "location": "Parramatta NSW",
+        "location": "Parramatta, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -35,15 +35,39 @@
         "names": "Rod & Tyanne",
         "bgImageName": "RodTyanne",
         "surname": "Gibson",
-        "location": "Parramatta NSW",
+        "location": "Parramatt, NSW",
         "nation": "Australia",
+        "group": "local"
+    },
+    {
+        "names": "Joshua & Maz",
+        "bgImageName": "JoshuaMaz",
+        "surname": "Walsh",
+        "location": "Port Louis",
+        "nation": "Mauritius",
+        "group": "local"
+    },
+    {
+        "names": "Nathan & Susan",
+        "bgImageName": "NathanSuzy",
+        "surname": "Bourne",
+        "location": "Otahuhu",
+        "nation": "New Zealand",
+        "group": "local"
+    },
+    {
+        "names": "Kris & Esther",
+        "bgImageName": "KrisEsther",
+        "surname": "Simak",
+        "location": "Panmure",
+        "nation": "New Zealand",
         "group": "local"
     },
     {
         "names": "Darren & Jo",
         "bgImageName": "DarrenJo",
         "surname": "Munzone",
-        "location": "Hurstville NSW",
+        "location": "Hurstville, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -51,7 +75,7 @@
         "names": "Ben & Adella",
         "bgImageName": "BenAdella",
         "surname": "Allen",
-        "location": "Liverpool NSW",
+        "location": "Liverpool, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -59,7 +83,7 @@
         "names": "Rick & Tina",
         "bgImageName": "RickTina",
         "surname": "Villamonte",
-        "location": "Blacktown NSW",
+        "location": "Blacktown, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -67,7 +91,7 @@
         "names": "Ernest & Tay",
         "bgImageName": "ErnestTay",
         "surname": "Bourne",
-        "location": "St Clair NSW",
+        "location": "St Clair, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -75,7 +99,7 @@
         "names": "Tony & Lieu",
         "bgImageName": "TonyLieu",
         "surname": "Hoang",
-        "location": "Fairfield NSW",
+        "location": "Fairfield, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -91,7 +115,7 @@
         "names": "Malcolm & Fiona",
         "bgImageName": "MalcolmFiona",
         "surname": "Anderson",
-        "location": "Melrose Park NSW",
+        "location": "Melrose Park, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -107,7 +131,7 @@
         "names": "Johnson & Sopia",
         "bgImageName": "JohnsonSopia",
         "surname": "Huynh",
-        "location": "Ingleburn NSW",
+        "location": "Ingleburn, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -123,7 +147,7 @@
         "names": "Adrian & Tash",
         "bgImageName": "AdrianTash",
         "surname": "Sciacca",
-        "location": "Eaglevale NSW",
+        "location": "Eaglevale, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -131,7 +155,7 @@
         "names": "John & Jade",
         "bgImageName": "JohnJade",
         "surname": "Hoang",
-        "location": "Fairfield (Assist)",
+        "location": "Fairfield (Assist), NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -139,7 +163,7 @@
         "names": "Dave & Doreen",
         "bgImageName": "DaveDoreen",
         "surname": "Sinclair",
-        "location": "Auburn NSW",
+        "location": "Auburn, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -147,15 +171,15 @@
         "names": "Kenny & Sui",
         "bgImageName": "KennySui",
         "surname": "Kura",
-        "location": "Marsden Park NSW",
+        "location": "Marsden Park, NSW",
         "nation": "Australia",
         "group": "local"
     },
     {
         "names": "Stuart & Jen",
-        "bgImageName": "StuartJen",
+        "bgImageName": "_default",
         "surname": "Leggett",
-        "location": "Newcastle NSW",
+        "location": "Newcastle, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -163,7 +187,7 @@
         "names": "Theo & Patricia",
         "bgImageName": "TheoPatricia",
         "surname": "Alexandrou",
-        "location": "St Marys NSW",
+        "location": "St Marys, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -171,7 +195,7 @@
         "names": "Grant & Jodie",
         "bgImageName": "GrantJodie",
         "surname": "Huggins",
-        "location": "Lismore NSW",
+        "location": "Lismore, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -179,7 +203,7 @@
         "names": "Johnny & Lucy",
         "bgImageName": "JohnnyLucy",
         "surname": "Nguyen",
-        "location": "Merrylands NSW",
+        "location": "Merrylands, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -187,7 +211,7 @@
         "names": "Ben & Jo",
         "bgImageName": "BenJo",
         "surname": "Reddy",
-        "location": "Hornsby NSW",
+        "location": "Hornsby, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -195,7 +219,7 @@
         "names": "Dinh & Donna",
         "bgImageName": "DinhDonna",
         "surname": "Luu",
-        "location": "Innerwest NSW",
+        "location": "Innerwest, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -203,7 +227,7 @@
         "names": "Brenton & Mele",
         "bgImageName": "BrentonMele",
         "surname": "Doyle O'Donnell",
-        "location": "Redfern NSW",
+        "location": "Redfern, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -211,15 +235,15 @@
         "names": "Craig & Raelene",
         "bgImageName": "CraigRaelene",
         "surname": "Holford",
-        "location": "Phillip ACT",
+        "location": "Phillip, ACT",
         "nation": "Australia",
         "group": "local"
     },
     {
-        "names": "Darryl & Carol",
-        "bgImageName": "DarrylCarol",
-        "surname": "Munckton",
-        "location": "Wollongong NSW",
+        "names": "Jack & Mellisa",
+        "bgImageName": "_default",
+        "surname": "Hobbs",
+        "location": "Wollongong, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -227,7 +251,7 @@
         "names": "Malachi & Abbey",
         "bgImageName": "MalachiAbbey",
         "surname": "Malavi",
-        "location": "Revesby NSW",
+        "location": "Revesby, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -235,15 +259,15 @@
         "names": "Mark & Hillary",
         "bgImageName": "MarkHillary",
         "surname": "Winder",
-        "location": "Goulburn NSW",
+        "location": "Goulburn, NSW",
         "nation": "Australia",
         "group": "local"
     },
     {
         "names": "Taholo & Bronwyn",
-        "bgImageName": "TaholoBronwyn",
+        "bgImageName": "_default",
         "surname": "Renagi",
-        "location": "Grafton NSW",
+        "location": "Grafton, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -251,22 +275,22 @@
         "names": "Greg & Lisa",
         "bgImageName": "GregLisa",
         "surname": "Mitchell",
-        "location": "Prescott",
+        "location": "Prescott, AZ",
         "nation": "USA",
         "group": "local"
     },
     {
         "names": "Jacob & Eliza",
-        "bgImageName": "JacobEliza",
+        "bgImageName": "_default",
         "surname": "Winterstein",
-        "location": "Moorebank NSW",
+        "location": "Moorebank, NSW",
         "nation": "Australia",
         "group": "local"
     },
     {
         "names": "Daryl & Jillian",
         "surname": "Elliott",
-        "location": "Beechboro WA",
+        "location": "Beechboro, WA",
         "nation": "Australia",
         "group": "national"
     },
@@ -717,27 +741,6 @@
         "location": "Willeton",
         "nation": "Australia",
         "group": "national"
-    },
-    {
-        "names": "Nathan & Susan",
-        "surname": "Bourne",
-        "location": "Otahuhu",
-        "nation": "New Zealand",
-        "group": "international"
-    },
-    {
-        "names": "Kris & Esther",
-        "surname": "Simak",
-        "location": "Panmure",
-        "nation": "New Zealand",
-        "group": "international"
-    },
-    {
-        "names": "Joshua & Maz",
-        "surname": "Walsh",
-        "location": "Port Louis",
-        "nation": "Mauritius",
-        "group": "international"
     },
     {
         "names": "Scott & Anna",
