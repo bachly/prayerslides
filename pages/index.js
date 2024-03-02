@@ -27,7 +27,7 @@ export default function Homepage() {
         const downloaded = JSON.parse(window.localStorage.getItem('downloaded'));
         setDownloaded(downloaded);
 
-        const couplesFromLocalStorage = null // JSON.parse(window.localStorage.getItem('couples'));
+        const couplesFromLocalStorage = JSON.parse(window.localStorage.getItem('couples'));
 
         if (couplesFromLocalStorage) {
             setCouples(couplesFromLocalStorage);
