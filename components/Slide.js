@@ -188,7 +188,7 @@ export default function Slide({
                         <div className="">
                             <input disabled={true} value={fields.name1} onChange={updateField('name1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
                             <input disabled={true} value={fields.surname1} onChange={updateField('surname1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
-                            {/* <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button> */}
+                            <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
                         </div>
                     </form>
                     <form onSubmit={saveCouple2()} className="border-b border-neutral-400 pt-2">
