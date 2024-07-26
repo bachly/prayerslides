@@ -177,7 +177,7 @@
     },
     {
         "names": "Stuart & Jen",
-        "bgImageName": "_default",
+        "bgImageName": "StuartJenny",
         "surname": "Leggett",
         "location": "Newcastle, NSW",
         "nation": "Australia",
@@ -241,7 +241,7 @@
     },
     {
         "names": "Jack & Mellisa",
-        "bgImageName": "_default",
+        "bgImageName": "JackMell",
         "surname": "Hobbs",
         "location": "Wollongong, NSW",
         "nation": "Australia",
@@ -281,9 +281,17 @@
     },
     {
         "names": "Jacob & Eliza",
-        "bgImageName": "_default",
+        "bgImageName": "JacobEliza",
         "surname": "Winterstein",
         "location": "Moorebank, NSW",
+        "nation": "Australia",
+        "group": "local"
+    },
+    {
+        "names": "Anthony & Hiba",
+        "bgImageName": "AnthonyHiba",
+        "surname": "Leondis",
+        "location": "Rockdale, NSW",
         "nation": "Australia",
         "group": "local"
     },
@@ -457,13 +465,6 @@
         "names": "Fritz & Claudia",
         "surname": "Helg",
         "location": "Footscray (Assist)",
-        "nation": "Australia",
-        "group": "national"
-    },
-    {
-        "names": "Jack & Melisa",
-        "surname": "Hobbs",
-        "location": "Clarkson",
         "nation": "Australia",
         "group": "national"
     },
