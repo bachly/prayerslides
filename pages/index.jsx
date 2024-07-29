@@ -5,12 +5,23 @@ import defaultCouples from "../public/files/couples.json"
 import { nanoid } from "nanoid";
 import _ from "underscore";
 
-const LAST_UPDATE = "31/12/2023";
+// firebase auth
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signOut } from "firebase/auth";
+import { auth, db } from '../lib/firebaseApp';
+import Link from "next/link";
+
+// firebase firestore
+import { doc, getDoc } from "firebase/firestore"
+
+const LAST_UPDATED = "27/07/2024";
 
 export default function Homepage() {
     const [couples, setCouples] = React.useState();
     const [downloaded, setDownloaded] = React.useState(null);
     const [slides, setSlides] = React.useState();
+    const [lastUpdated, setLastUpdated] = React.useState();
+    const [user, loading] = useAuthState(auth);
 
     function markAsDownloaded(slideId) {
         return (event) => {
@@ -27,22 +38,25 @@ export default function Homepage() {
         const downloaded = JSON.parse(window.localStorage.getItem('downloaded'));
         setDownloaded(downloaded);
 
+        const lastUpdated = JSON.parse(window.localStorage.getItem('lastUpdated'));
+
         const couplesFromLocalStorage = JSON.parse(window.localStorage.getItem('couples'));
 
-        if (couplesFromLocalStorage) {
-            setCouples(couplesFromLocalStorage);
-        } else {
-            const couplesDict = {}
-            defaultCouples.forEach((couple) => {
-                const id = nanoid();
-                couplesDict[id] = {
-                    ...couple,
-                    id
-                };
-            });
-            setCouples(couplesDict);
-        }
+        const couplesFromMainDatabase = {};
+        defaultCouples.forEach((couple) => {
+            const id = nanoid();
+            couplesFromMainDatabase[id] = {
+                ...couple,
+                id
+            };
+        });
 
+        if (!lastUpdated || lastUpdated !== LAST_UPDATED) {
+            setLastUpdated(LAST_UPDATED);
+            setCouples(couplesFromMainDatabase);
+        } else {
+            setCouples(couplesFromLocalStorage);
+        }
     }, [])
 
     React.useEffect(function saveToLocalStorage() {
@@ -53,7 +67,11 @@ export default function Homepage() {
         if (couples) {
             window.localStorage.setItem('couples', JSON.stringify(couples));
         }
-    }, [downloaded, couples])
+
+        if (lastUpdated) {
+            window.localStorage.setItem('lastUpdated', JSON.stringify(lastUpdated));
+        }
+    }, [downloaded, couples, lastUpdated])
 
     React.useEffect(function regenerateSlides() {
         if (couples) {
@@ -94,6 +112,25 @@ export default function Homepage() {
         })
     }
 
+    React.useEffect(async () => {
+        if (user) {
+            console.log("Logged in user:", user);
+
+            const docRef = doc(db, "Users", user.email);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                console.log("Logged-in user's data:", docSnap.data());
+            } else {
+                console.log("Logged-in user's data: N/A");
+            }
+        }
+    }, [user])
+
+    function handleLogoutClick(event) {
+        event.preventDefault();
+        signOut(auth);
+    }
+
     return <div className="">
         <div className="flex items-start bg-neutral-900">
             <main className="flex-1">
@@ -103,7 +140,18 @@ export default function Homepage() {
                             <div className="font-bold text-neutral-200 text-2xl">
                                 Prayer Slides for ~{slides && (slides.length / 12).toFixed(0)} months
                             </div>
-                            <div className="text-base text-neutral-400">Last update: {LAST_UPDATE}</div>
+                            <div className="text-base text-neutral-400">Last update: {LAST_UPDATED}</div>
+                        </div>
+                        <div className="text-white">
+                            {loading ? <>Loading...</> :
+                                <>
+                                    {user && <div className="flex items-center">
+                                        {user.email} (<button className="underline" onClick={handleLogoutClick} >Log out</button>)
+                                        <img src={user.photoURL} className="rounded-full ml-2 w-6 h-6" />
+                                    </div>}
+                                    {!user && <Link href="/login">Login</Link>}
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
