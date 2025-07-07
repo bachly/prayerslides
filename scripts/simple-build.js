@@ -20,7 +20,10 @@ try {
 // Step 2: Build Next.js application
 console.log('2. Building Next.js application...');
 try {
-  execSync('npm run build', { stdio: 'inherit' });
+  execSync('npm run build', {
+    stdio: 'inherit',
+    env: { ...process.env, NODE_ENV: 'production' }
+  });
   console.log('✅ Next.js build completed\n');
 } catch (error) {
   console.error('❌ Next.js build failed');
@@ -30,7 +33,10 @@ try {
 // Step 3: Export static files
 console.log('3. Exporting static files...');
 try {
-  execSync('npm run export', { stdio: 'inherit' });
+  execSync('npm run export', {
+    stdio: 'inherit',
+    env: { ...process.env, NODE_ENV: 'production' }
+  });
   console.log('✅ Static export completed\n');
 } catch (error) {
   console.error('❌ Static export failed');
@@ -44,6 +50,16 @@ if (!fs.existsSync('out') || !fs.existsSync('out/index.html')) {
   process.exit(1);
 }
 console.log('✅ Static export verified\n');
+
+// Step 5: Fix paths for Electron
+console.log('5. Fixing paths for Electron...');
+try {
+  execSync('node scripts/fix-paths.js', { stdio: 'inherit' });
+  console.log('✅ Paths fixed for Electron\n');
+} catch (error) {
+  console.error('❌ Path fixing failed');
+  process.exit(1);
+}
 
 console.log('🎉 Build completed successfully!');
 console.log('\nTo run the Electron app:');

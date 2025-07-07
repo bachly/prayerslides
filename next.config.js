@@ -4,6 +4,9 @@ const nextConfig = {
   swcMinify: true,
   trailingSlash: true,
 
+  // Configure asset prefix for Electron
+  assetPrefix: process.env.NODE_ENV === 'production' ? './' : '',
+
   // Disable image optimization for static export
   images: {
     unoptimized: true

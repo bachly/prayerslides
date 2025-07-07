@@ -8,9 +8,9 @@
   "homepage": "./",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
-    "export": "next export",
+    "export": "cross-env NODE_ENV=production next export",
     "electron": "electron .",
     "electron-dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DEV=true electron .\"",
     "build-electron": "node scripts/build-electron.js",

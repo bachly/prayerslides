@@ -30,6 +30,8 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, '../out/index.html'));
+    // Open DevTools for debugging
+    mainWindow.webContents.openDevTools();
   }
 
   // Show window when ready to prevent visual flash
