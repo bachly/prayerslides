@@ -1,5 +1,6 @@
-const { app, BrowserWindow, Menu, shell, dialog } = require('electron');
+const { app, BrowserWindow, Menu, shell, dialog, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('fs');
 const isDev = process.env.ELECTRON_DEV === 'true';
 
 let mainWindow;
@@ -142,10 +143,36 @@ function createMenu() {
   Menu.setApplicationMenu(menu);
 }
 
+// IPC handlers
+function setupIpcHandlers() {
+  // Handler to load couples data from JSON file
+  ipcMain.handle('load-couples-data', async () => {
+    try {
+      let couplesFilePath;
+
+      if (isDev) {
+        // In development, load from public/files/couples.json
+        couplesFilePath = path.join(__dirname, '../public/files/couples.json');
+      } else {
+        // In production, load from out/files/couples.json
+        couplesFilePath = path.join(__dirname, '../out/files/couples.json');
+      }
+
+      const data = fs.readFileSync(couplesFilePath, 'utf8');
+      return JSON.parse(data);
+    } catch (error) {
+      console.error('Error loading couples data:', error);
+      // Return empty array if file doesn't exist or can't be read
+      return [];
+    }
+  });
+}
+
 // App event handlers
 app.whenReady().then(() => {
   createWindow();
   createMenu();
+  setupIpcHandlers();
 
   app.on('activate', () => {
     // On macOS, re-create window when dock icon is clicked

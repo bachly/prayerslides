@@ -1,7 +1,6 @@
 import React from "react";
 import Slide from "../components/Slide"
 import generateSlides from "../lib/generateSlides"
-import defaultCouples from "../public/files/couples.json"
 import { nanoid } from "nanoid";
 import _ from "underscore";
 
@@ -23,26 +22,47 @@ export default function Homepage() {
         }
     }
 
-    React.useEffect(function readFromLocalStorage() {
+    React.useEffect(function loadDataFromJSON() {
         const downloaded = JSON.parse(window.localStorage.getItem('downloaded'));
         setDownloaded(downloaded);
 
-        const couplesFromLocalStorage = JSON.parse(window.localStorage.getItem('couples'));
+        // Load couples data directly from JSON file
+        async function loadCouplesData() {
+            try {
+                // Check if we're in Electron environment
+                if (typeof window !== 'undefined' && window.electronAPI) {
+                    // Load from JSON file via Electron IPC
+                    const couplesFromJSON = await window.electronAPI.loadCouplesData();
 
-        if (couplesFromLocalStorage) {
-            setCouples(couplesFromLocalStorage);
-        } else {
-            const couplesDict = {}
-            defaultCouples.forEach((couple) => {
-                const id = nanoid();
-                couplesDict[id] = {
-                    ...couple,
-                    id
-                };
-            });
-            setCouples(couplesDict);
+                    // Get any custom couples from localStorage (user additions/modifications)
+                    const customCouples = JSON.parse(window.localStorage.getItem('customCouples')) || {};
+
+                    // Convert JSON array to dictionary format with IDs
+                    const couplesDict = {};
+                    couplesFromJSON.forEach((couple) => {
+                        const id = nanoid();
+                        couplesDict[id] = {
+                            ...couple,
+                            id,
+                            isCustom: false // Mark as original data
+                        };
+                    });
+
+                    // Merge with custom couples (preserving user customizations)
+                    const mergedCouples = { ...couplesDict, ...customCouples };
+                    setCouples(mergedCouples);
+                } else {
+                    // Fallback for web environment (shouldn't happen in Electron app)
+                    console.warn('Electron API not available, using fallback');
+                    setCouples({});
+                }
+            } catch (error) {
+                console.error('Error loading couples data:', error);
+                setCouples({});
+            }
         }
 
+        loadCouplesData();
     }, [])
 
     React.useEffect(function saveToLocalStorage() {
@@ -51,7 +71,14 @@ export default function Homepage() {
         }
 
         if (couples) {
-            window.localStorage.setItem('couples', JSON.stringify(couples));
+            // Only save custom couples (user additions/modifications) to localStorage
+            const customCouples = {};
+            Object.keys(couples).forEach(id => {
+                if (couples[id].isCustom) {
+                    customCouples[id] = couples[id];
+                }
+            });
+            window.localStorage.setItem('customCouples', JSON.stringify(customCouples));
         }
     }, [downloaded, couples])
 
@@ -89,7 +116,8 @@ export default function Homepage() {
                 names,
                 surname,
                 location,
-                nation
+                nation,
+                isCustom: true // Mark as custom when user modifies
             }
         })
     }
