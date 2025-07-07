@@ -24,7 +24,7 @@ function createWindow() {
   });
 
   // Load the app
-  if (isDev) {
+  if (isDev && process.env.ELECTRON_DEV) {
     mainWindow.loadURL('http://localhost:3000');
     // Open DevTools in development
     mainWindow.webContents.openDevTools();

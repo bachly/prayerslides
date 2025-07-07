@@ -2,17 +2,19 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-
-  // Only enable static export for production builds
-  ...(process.env.NODE_ENV === 'production' && {
-    output: 'export',
-    trailingSlash: true,
-    assetPrefix: './'
-  }),
+  trailingSlash: true,
 
   // Disable image optimization for static export
   images: {
     unoptimized: true
+  },
+
+  // Configure for static export
+  distDir: '.next',
+
+  // Disable server-side features for static export
+  experimental: {
+    esmExternals: false
   }
 }
 
