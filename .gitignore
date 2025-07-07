@@ -7,3 +7,16 @@ out
 .env
 # Local Netlify folder
 .netlify
+
+# Electron build outputs
+dist/
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+*.snap
+
+# Electron cache
+.electron-gyp/
+.electron/
