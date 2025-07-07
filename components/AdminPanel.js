@@ -124,26 +124,43 @@ const CoupleForm = ({ couple, onSubmit, onCancel, loading, title }) => {
     location: couple?.location || '',
     nation: couple?.nation || '',
     group: couple?.group || 'local',
-    bgImageName: couple?.bgImageName || '',
-    ...couple
+    bgImageName: couple?.bgImageName || ''
   });
   const [imageFile, setImageFile] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    let finalData = { ...formData };
-    
+
+    // Validate required fields
+    if (!formData.names || !formData.location || !formData.nation) {
+      alert('Please fill in all required fields (Names, Location, Nation)');
+      return;
+    }
+
+    // Create data in exact JSON structure
+    let finalData = {
+      names: formData.names.trim(),
+      bgImageName: formData.bgImageName.trim() || formData.names.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, ''),
+      surname: formData.surname.trim(),
+      location: formData.location.trim(),
+      nation: formData.nation.trim(),
+      group: formData.group
+    };
+
     // Handle image upload if new image is selected
     if (imageFile) {
-      const fileName = `${formData.bgImageName || formData.names.replace(/\s+/g, '')}.${imageFile.name.split('.').pop()}`;
+      const fileName = `${finalData.bgImageName}.${imageFile.name.split('.').pop()}`;
       const uploadResult = await uploadImageToFirebase(imageFile, fileName);
       if (uploadResult.success) {
-        finalData.bgImageName = fileName.split('.')[0]; // Remove extension
+        finalData.bgImageName = fileName.split('.')[0]; // Remove extension for consistency
         finalData.imageUrl = uploadResult.url;
+      } else {
+        alert('Failed to upload image. Please try again.');
+        return;
       }
     }
-    
+
+    console.log('Submitting couple data:', finalData);
     onSubmit(finalData);
   };
 
@@ -152,12 +169,15 @@ const CoupleForm = ({ couple, onSubmit, onCancel, loading, title }) => {
       <h3 className="text-lg font-semibold mb-4">{title}</h3>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Names</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Names <span className="text-red-500">*</span>
+          </label>
           <input
             type="text"
             value={formData.names}
             onChange={(e) => setFormData({ ...formData, names: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="e.g., John & Jane"
             required
           />
         </div>
@@ -173,23 +193,29 @@ const CoupleForm = ({ couple, onSubmit, onCancel, loading, title }) => {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Location <span className="text-red-500">*</span>
+          </label>
           <input
             type="text"
             value={formData.location}
             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="e.g., Sydney, NSW"
             required
           />
         </div>
-        
+
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nation</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Nation <span className="text-red-500">*</span>
+          </label>
           <input
             type="text"
             value={formData.nation}
             onChange={(e) => setFormData({ ...formData, nation: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="e.g., Australia"
             required
           />
         </div>
@@ -209,13 +235,26 @@ const CoupleForm = ({ couple, onSubmit, onCancel, loading, title }) => {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Background Image</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Background Image Name</label>
+          <input
+            type="text"
+            value={formData.bgImageName}
+            onChange={(e) => setFormData({ ...formData, bgImageName: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Auto-generated from names if empty"
+          />
+          <p className="text-xs text-gray-500 mt-1">Used for image file naming (no spaces or special characters)</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Background Image File</label>
           <input
             type="file"
             accept="image/*"
             onChange={(e) => setImageFile(e.target.files[0])}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <p className="text-xs text-gray-500 mt-1">Upload a new background image for this couple</p>
         </div>
         
         <div className="md:col-span-2 flex space-x-3 pt-4">

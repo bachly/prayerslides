@@ -9,7 +9,7 @@ import _ from "underscore";
 import { AiOutlineSetting, AiOutlineSync, AiOutlineWifi } from "react-icons/ai";
 import { MdSignalWifiOff } from "react-icons/md";
 import { useAuth } from "../contexts/AuthContext";
-import { syncDataFromFirebase, getLocalCouples, saveLocalCouples, setupAutoSync } from "../lib/dataSync";
+import { syncDataFromFirebase, getLocalCouples, saveLocalCouples, setupAutoSync, initializeAppData } from "../lib/dataSync";
 
 const LAST_UPDATE = "31/12/2023";
 
@@ -23,6 +23,8 @@ export default function Homepage() {
     const [syncStatus, setSyncStatus] = React.useState('idle'); // idle, syncing, success, error
     const [isOnline, setIsOnline] = React.useState(true);
     const [lastSync, setLastSync] = React.useState(null);
+    const [dataSource, setDataSource] = React.useState('loading'); // 'loading', 'firebase', 'json'
+    const [initializationStatus, setInitializationStatus] = React.useState('Initializing...');
 
     function markAsDownloaded(slideId) {
         return (event) => {
@@ -81,7 +83,7 @@ export default function Homepage() {
         setShowAdminPanel(true);
     };
 
-    // Initialize data and sync
+    // Initialize data with Firebase-first approach
     React.useEffect(function initializeData() {
         const downloaded = JSON.parse(window.localStorage.getItem('downloaded') || 'null');
         setDownloaded(downloaded);
@@ -93,33 +95,62 @@ export default function Homepage() {
         window.addEventListener('online', handleOnline);
         window.addEventListener('offline', handleOffline);
 
-        // Load local data first
-        const localCouples = getLocalCouples();
+        // Initialize app data (Firebase-first with JSON fallback)
+        const initializeAppDataAsync = async () => {
+            try {
+                setInitializationStatus('Checking Firebase connection...');
 
-        if (Object.keys(localCouples).length > 0) {
-            setCouples(localCouples);
-        } else {
-            // Fallback to default data if no local data
-            const couplesDict = {}
-            defaultCouples.forEach((couple) => {
-                const id = nanoid();
-                couplesDict[id] = {
-                    ...couple,
-                    id
-                };
-            });
-            setCouples(couplesDict);
-            saveLocalCouples(couplesDict);
-        }
+                const initResult = await initializeAppData(defaultCouples);
 
-        // Setup auto-sync if online
+                if (initResult.success) {
+                    setCouples(initResult.data);
+                    setDataSource(initResult.source);
+                    setLastSync(new Date());
+
+                    if (initResult.migrated) {
+                        setInitializationStatus('Migrated data to Firebase successfully');
+                    } else {
+                        setInitializationStatus(`Loaded from ${initResult.source}`);
+                    }
+
+                    console.log(`✅ App initialized from ${initResult.source}`);
+                } else {
+                    setInitializationStatus('Failed to initialize data');
+                    console.error('❌ Failed to initialize app data');
+                }
+            } catch (error) {
+                console.error('❌ Error during initialization:', error);
+                setInitializationStatus('Initialization error - using local data');
+
+                // Emergency fallback to JSON data
+                const couplesDict = {}
+                defaultCouples.forEach((couple) => {
+                    const id = nanoid();
+                    couplesDict[id] = {
+                        ...couple,
+                        id
+                    };
+                });
+                setCouples(couplesDict);
+                setDataSource('json');
+            }
+        };
+
+        initializeAppDataAsync();
+
+        // Setup auto-sync if online and using Firebase
         let cleanupAutoSync;
-        if (navigator.onLine) {
-            cleanupAutoSync = setupAutoSync((newData) => {
-                setCouples(newData);
-                setLastSync(new Date());
-            });
-        }
+        const setupAutoSyncIfNeeded = () => {
+            if (navigator.onLine && dataSource === 'firebase') {
+                cleanupAutoSync = setupAutoSync((newData) => {
+                    setCouples(newData);
+                    setLastSync(new Date());
+                });
+            }
+        };
+
+        // Delay auto-sync setup to allow initialization to complete
+        setTimeout(setupAutoSyncIfNeeded, 5000);
 
         return () => {
             window.removeEventListener('online', handleOnline);
@@ -139,7 +170,10 @@ export default function Homepage() {
     }, [downloaded, couples])
 
     React.useEffect(function regenerateSlides() {
-        if (couples) {
+        if (couples && Object.keys(couples).length > 0) {
+            console.log('🎯 Regenerating slides from Firebase data...');
+
+            // Group couples by their group property
             const group1 = _.compact(Object.keys(couples).map(id => {
                 if (couples[id].group === 'local') {
                     return couples[id];
@@ -156,11 +190,23 @@ export default function Homepage() {
                 }
             }));
 
-            if (group1 && group2 && group3) {
+            console.log(`📊 Groups: Local(${group1.length}), National(${group2.length}), International(${group3.length})`);
+
+            if (group1.length > 0 && group2.length > 0 && group3.length > 0) {
                 const newSlides = generateSlides(group1, group2, group3);
                 setSlides(newSlides);
-                console.log("New slides:", newSlides);
+                console.log(`✅ Generated ${newSlides.length} slides from Firebase data`);
+            } else {
+                console.warn('⚠️ Missing couples in one or more groups:', {
+                    local: group1.length,
+                    national: group2.length,
+                    international: group3.length
+                });
+                setSlides([]);
             }
+        } else {
+            console.log('⏳ Waiting for couples data...');
+            setSlides([]);
         }
     }, [couples])
 
@@ -193,6 +239,16 @@ export default function Homepage() {
                                         • Last sync: {lastSync.toLocaleTimeString()}
                                     </span>
                                 )}
+                                {dataSource !== 'loading' && (
+                                    <span className="ml-4">
+                                        • Source: {dataSource === 'firebase' ? '☁️ Firebase' : '📁 Local JSON'}
+                                    </span>
+                                )}
+                                {dataSource === 'loading' && (
+                                    <span className="ml-4 text-yellow-400">
+                                        • {initializationStatus}
+                                    </span>
+                                )}
                             </div>
                         </div>
                         <div className="flex items-center space-x-3">
@@ -208,7 +264,7 @@ export default function Homepage() {
                             {/* Sync Button */}
                             <button
                                 onClick={handleManualSync}
-                                disabled={!isOnline || syncStatus === 'syncing'}
+                                disabled={!isOnline || syncStatus === 'syncing' || dataSource === 'loading' || dataSource === 'json'}
                                 className={`p-2 rounded-md transition-colors ${
                                     syncStatus === 'syncing'
                                         ? 'text-blue-400 animate-spin'
@@ -216,9 +272,16 @@ export default function Homepage() {
                                         ? 'text-green-400'
                                         : syncStatus === 'error'
                                         ? 'text-red-400'
-                                        : 'text-neutral-400 hover:text-neutral-200'
-                                } ${!isOnline ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                title={isOnline ? 'Sync with Firebase' : 'Offline - Cannot sync'}
+                                        : dataSource === 'firebase'
+                                        ? 'text-neutral-400 hover:text-neutral-200'
+                                        : 'text-neutral-600'
+                                } ${(!isOnline || dataSource !== 'firebase') ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                title={
+                                    dataSource === 'loading' ? 'Initializing...' :
+                                    dataSource === 'json' ? 'Using local data - Firebase not available' :
+                                    !isOnline ? 'Offline - Cannot sync' :
+                                    'Sync with Firebase'
+                                }
                             >
                                 <AiOutlineSync size={20} />
                             </button>
