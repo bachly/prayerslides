@@ -1,4 +1,0 @@
-#!/bin/bash
-# This is a placeholder - actual Mac build requires Electron binary
-echo "This package needs to be completed on a Mac system"
-echo "Copy this structure to a Mac and run: npm run package-mac"
