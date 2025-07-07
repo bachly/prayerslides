@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Menu, shell, dialog } = require('electron');
 const path = require('path');
-const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
+const isDev = process.env.ELECTRON_DEV === 'true';
 
 let mainWindow;
 
@@ -24,14 +24,12 @@ function createWindow() {
   });
 
   // Load the app
-  if (isDev && process.env.ELECTRON_DEV) {
+  if (isDev) {
     mainWindow.loadURL('http://localhost:3000');
     // Open DevTools in development
     mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, '../out/index.html'));
-    // Open DevTools for debugging
-    mainWindow.webContents.openDevTools();
   }
 
   // Show window when ready to prevent visual flash
