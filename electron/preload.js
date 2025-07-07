@@ -15,5 +15,17 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openFile: () => ipcRenderer.invoke('open-file'),
 
   // Load couples data directly from JSON file
-  loadCouplesData: () => ipcRenderer.invoke('load-couples-data')
+  loadCouplesData: () => ipcRenderer.invoke('load-couples-data'),
+
+  // Zip file operations
+  importDataZip: (filePath) => ipcRenderer.invoke('import-data-zip', filePath),
+  exportDataZip: () => ipcRenderer.invoke('export-data-zip'),
+
+  // Version management
+  getAvailableBackups: () => ipcRenderer.invoke('get-available-backups'),
+  restoreFromBackup: (backupPath) => ipcRenderer.invoke('restore-from-backup', backupPath),
+
+  // File dialog operations
+  showOpenDialog: (options) => ipcRenderer.invoke('show-open-dialog', options),
+  showSaveDialog: (options) => ipcRenderer.invoke('show-save-dialog', options)
 });

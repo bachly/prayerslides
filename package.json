@@ -15,12 +15,14 @@
     "electron-dev": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && cross-env ELECTRON_DEV=true electron .\"",
     "build-electron": "node scripts/build-electron.js",
     "build-simple": "node scripts/simple-build.js",
+    "create-distribution": "node scripts/create-distribution-zip.js",
     "dist": "npm run build-electron",
     "dist-all": "npm run build && npm run export && electron-builder --publish=never --win --mac --linux"
   },
   "dependencies": {
     "@tabler/icons-react": "^2.20.0",
     "@tailwindcss/typography": "^0.5.2",
+    "adm-zip": "^0.5.16",
     "classnames": "^2.3.1",
     "clsx": "^1.1.1",
     "date-fns": "^2.28.0",

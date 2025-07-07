@@ -1,5 +1,6 @@
 import React from "react";
 import Slide from "../components/Slide"
+import ImportExportControls from "../components/ImportExportControls"
 import generateSlides from "../lib/generateSlides"
 import { nanoid } from "nanoid";
 import _ from "underscore";
@@ -123,6 +124,7 @@ export default function Homepage() {
     }
 
     return <div className="">
+        <ImportExportControls onDataUpdate={() => window.location.reload()} />
         <div className="flex items-start bg-neutral-900">
             <main className="flex-1">
                 <div className="bg-neutral-900/60 py-4 px-12 backdrop-blur-lg fixed top-0 left-0 w-full">
