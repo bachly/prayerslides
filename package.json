@@ -32,6 +32,8 @@
     "create-installer-mac": "node scripts/create-installer.js mac",
     "debug-package": "node scripts/debug-package.js",
     "production-package": "node scripts/production-package.js",
+    "build-mac": "node scripts/cross-platform-build.js",
+    "build-mac-portable": "node scripts/cross-platform-build.js portable",
     "dist": "npm run build-installer",
     "dist-exe": "npm run build-exe",
     "dist-dmg": "npm run build-dmg",
