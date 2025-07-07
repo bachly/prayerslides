@@ -1,16 +1,28 @@
 import React from "react";
 import Slide from "../components/Slide"
+import AdminLoginModal from "../components/AdminLoginModal"
+import AdminPanel from "../components/AdminPanel"
 import generateSlides from "../lib/generateSlides"
 import defaultCouples from "../public/files/couples.json"
 import { nanoid } from "nanoid";
 import _ from "underscore";
+import { AiOutlineSetting, AiOutlineSync, AiOutlineWifi } from "react-icons/ai";
+import { MdSignalWifiOff } from "react-icons/md";
+import { useAuth } from "../contexts/AuthContext";
+import { syncDataFromFirebase, getLocalCouples, saveLocalCouples, setupAutoSync } from "../lib/dataSync";
 
 const LAST_UPDATE = "31/12/2023";
 
 export default function Homepage() {
+    const { isAdmin } = useAuth();
     const [couples, setCouples] = React.useState();
     const [downloaded, setDownloaded] = React.useState(null);
     const [slides, setSlides] = React.useState();
+    const [showLoginModal, setShowLoginModal] = React.useState(false);
+    const [showAdminPanel, setShowAdminPanel] = React.useState(false);
+    const [syncStatus, setSyncStatus] = React.useState('idle'); // idle, syncing, success, error
+    const [isOnline, setIsOnline] = React.useState(true);
+    const [lastSync, setLastSync] = React.useState(null);
 
     function markAsDownloaded(slideId) {
         return (event) => {
@@ -23,15 +35,71 @@ export default function Homepage() {
         }
     }
 
-    React.useEffect(function readFromLocalStorage() {
-        const downloaded = JSON.parse(window.localStorage.getItem('downloaded'));
+    const handleManualSync = async () => {
+        if (!isOnline) {
+            alert('Cannot sync while offline');
+            return;
+        }
+
+        setSyncStatus('syncing');
+        try {
+            const result = await syncDataFromFirebase(true);
+            if (result.success && result.updated) {
+                setCouples(result.data);
+                setLastSync(new Date());
+                setSyncStatus('success');
+            } else {
+                setSyncStatus('idle');
+            }
+        } catch (error) {
+            console.error('Manual sync failed:', error);
+            setSyncStatus('error');
+        }
+
+        // Reset status after 3 seconds
+        setTimeout(() => setSyncStatus('idle'), 3000);
+    };
+
+    const handleDataUpdate = async () => {
+        // Refresh data after admin changes
+        const result = await syncDataFromFirebase(true);
+        if (result.success && result.data) {
+            setCouples(result.data);
+            setLastSync(new Date());
+        }
+    };
+
+    const handleSettingsClick = () => {
+        if (isAdmin) {
+            setShowAdminPanel(!showAdminPanel);
+        } else {
+            setShowLoginModal(true);
+        }
+    };
+
+    const handleLoginSuccess = () => {
+        setShowAdminPanel(true);
+    };
+
+    // Initialize data and sync
+    React.useEffect(function initializeData() {
+        const downloaded = JSON.parse(window.localStorage.getItem('downloaded') || 'null');
         setDownloaded(downloaded);
 
-        const couplesFromLocalStorage = JSON.parse(window.localStorage.getItem('couples'));
+        // Check online status
+        setIsOnline(navigator.onLine);
+        const handleOnline = () => setIsOnline(true);
+        const handleOffline = () => setIsOnline(false);
+        window.addEventListener('online', handleOnline);
+        window.addEventListener('offline', handleOffline);
 
-        if (couplesFromLocalStorage) {
-            setCouples(couplesFromLocalStorage);
+        // Load local data first
+        const localCouples = getLocalCouples();
+
+        if (Object.keys(localCouples).length > 0) {
+            setCouples(localCouples);
         } else {
+            // Fallback to default data if no local data
             const couplesDict = {}
             defaultCouples.forEach((couple) => {
                 const id = nanoid();
@@ -41,8 +109,23 @@ export default function Homepage() {
                 };
             });
             setCouples(couplesDict);
+            saveLocalCouples(couplesDict);
         }
 
+        // Setup auto-sync if online
+        let cleanupAutoSync;
+        if (navigator.onLine) {
+            cleanupAutoSync = setupAutoSync((newData) => {
+                setCouples(newData);
+                setLastSync(new Date());
+            });
+        }
+
+        return () => {
+            window.removeEventListener('online', handleOnline);
+            window.removeEventListener('offline', handleOffline);
+            if (cleanupAutoSync) cleanupAutoSync();
+        };
     }, [])
 
     React.useEffect(function saveToLocalStorage() {
@@ -103,7 +186,51 @@ export default function Homepage() {
                             <div className="font-bold text-neutral-200 text-2xl">
                                 Prayer Slides for ~{slides && (slides.length / 12).toFixed(0)} months
                             </div>
-                            <div className="text-base text-neutral-400">Last update: {LAST_UPDATE}</div>
+                            <div className="text-base text-neutral-400">
+                                Last update: {LAST_UPDATE}
+                                {lastSync && (
+                                    <span className="ml-4">
+                                        • Last sync: {lastSync.toLocaleTimeString()}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                            {/* Online/Offline Status */}
+                            <div className="flex items-center text-neutral-400">
+                                {isOnline ? (
+                                    <AiOutlineWifi className="text-green-400" size={20} />
+                                ) : (
+                                    <MdSignalWifiOff className="text-red-400" size={20} />
+                                )}
+                            </div>
+
+                            {/* Sync Button */}
+                            <button
+                                onClick={handleManualSync}
+                                disabled={!isOnline || syncStatus === 'syncing'}
+                                className={`p-2 rounded-md transition-colors ${
+                                    syncStatus === 'syncing'
+                                        ? 'text-blue-400 animate-spin'
+                                        : syncStatus === 'success'
+                                        ? 'text-green-400'
+                                        : syncStatus === 'error'
+                                        ? 'text-red-400'
+                                        : 'text-neutral-400 hover:text-neutral-200'
+                                } ${!isOnline ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                title={isOnline ? 'Sync with Firebase' : 'Offline - Cannot sync'}
+                            >
+                                <AiOutlineSync size={20} />
+                            </button>
+
+                            {/* Settings/Admin Button */}
+                            <button
+                                onClick={handleSettingsClick}
+                                className="p-2 text-neutral-400 hover:text-neutral-200 transition-colors rounded-md hover:bg-neutral-800"
+                                title={isAdmin ? 'Admin Panel' : 'Admin Login'}
+                            >
+                                <AiOutlineSetting size={20} />
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -138,5 +265,32 @@ export default function Homepage() {
                 </div>
             </main>
         </div>
+
+        {/* Admin Login Modal */}
+        <AdminLoginModal
+            isOpen={showLoginModal}
+            onClose={() => setShowLoginModal(false)}
+            onLoginSuccess={handleLoginSuccess}
+        />
+
+        {/* Admin Panel */}
+        {showAdminPanel && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+                    <div className="sticky top-0 bg-white border-b p-4 flex justify-between items-center">
+                        <h2 className="text-xl font-bold">Admin Panel</h2>
+                        <button
+                            onClick={() => setShowAdminPanel(false)}
+                            className="text-gray-400 hover:text-gray-600"
+                        >
+                            ✕
+                        </button>
+                    </div>
+                    <div className="p-4">
+                        <AdminPanel couples={couples} onDataUpdate={handleDataUpdate} />
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
 }

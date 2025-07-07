@@ -2,6 +2,7 @@ import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react"
 import { AiOutlineCheckCircle, AiOutlineDownload } from "react-icons/ai";
+import { useAuth } from "../contexts/AuthContext";
 
 const SCALE_FACTOR = 3.84;
 const CONFIG = {
@@ -36,6 +37,7 @@ export default function Slide({
     isDownloaded,
     onUpdate
 }) {
+    const { isAdmin } = useAuth();
     const canvasRef = useRef();
     const downloadCanvasRef = useRef();
     const downloadLinkRef = useRef();
@@ -179,6 +181,16 @@ export default function Slide({
 
         {isEditing &&
             <div className="py-2 px-2 bg-neutral-200">
+                {!isAdmin && (
+                    <div className="mb-2 p-2 bg-yellow-100 border border-yellow-300 rounded text-sm text-yellow-800">
+                        <strong>General User:</strong> You can edit locations and nations only. Names are read-only.
+                    </div>
+                )}
+                {isAdmin && (
+                    <div className="mb-2 p-2 bg-green-100 border border-green-300 rounded text-sm text-green-800">
+                        <strong>Admin Mode:</strong> You can edit all fields and manage couples.
+                    </div>
+                )}
                 <div className="flex flex-col">
                     <form onSubmit={saveCouple1()} className="border-b border-neutral-400 pt-2 pb-2">
                         <div className="">
@@ -186,8 +198,8 @@ export default function Slide({
                             <input value={fields.nation1} onChange={updateField('nation1')} className="px-2 bg-neutral-200 focus:bg-white" />
                         </div>
                         <div className="">
-                            <input disabled={true} value={fields.name1} onChange={updateField('name1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
-                            <input disabled={true} value={fields.surname1} onChange={updateField('surname1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
+                            <input disabled={!isAdmin} value={fields.name1} onChange={updateField('name1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
+                            <input disabled={!isAdmin} value={fields.surname1} onChange={updateField('surname1')} className="px-2 bg-neutral-200 mr-2 disabled:text-neutral-600" />
                             <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
                         </div>
                     </form>
@@ -197,8 +209,8 @@ export default function Slide({
                             <input value={fields.nation2} onChange={updateField('nation2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
                         </div>
                         <div className="">
-                            <input value={fields.name2} onChange={updateField('name2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
-                            <input value={fields.surname2} onChange={updateField('surname2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input disabled={!isAdmin} value={fields.name2} onChange={updateField('name2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white disabled:text-neutral-600" />
+                            <input disabled={!isAdmin} value={fields.surname2} onChange={updateField('surname2')} className="px-2 bg-neutral-200 mr-2 focus:bg-white disabled:text-neutral-600" />
                             <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
                         </div>
                     </form>
@@ -208,8 +220,8 @@ export default function Slide({
                             <input value={fields.nation3} onChange={updateField('nation3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
                         </div>
                         <div className="">
-                            <input value={fields.name3} onChange={updateField('name3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
-                            <input value={fields.surname3} onChange={updateField('surname3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white" />
+                            <input disabled={!isAdmin} value={fields.name3} onChange={updateField('name3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white disabled:text-neutral-600" />
+                            <input disabled={!isAdmin} value={fields.surname3} onChange={updateField('surname3')} className="px-2 bg-neutral-200 mr-2 focus:bg-white disabled:text-neutral-600" />
                             <button className="my-1 border border-neutral-800 rounded-sm bg-neutral-200 px-2">Save</button>
                         </div>
                     </form>
