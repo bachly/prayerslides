@@ -35,24 +35,10 @@ jobs:
         # Disable code signing for now (creates unsigned app)
         CSC_IDENTITY_AUTO_DISCOVERY: false
         
-    - name: Create DMG (if create-dmg is available)
+    - name: Create DMG (optional)
       run: |
-        if command -v create-dmg &> /dev/null; then
-          mkdir -p installers
-          create-dmg \
-            --volname "Prayer Slides Installer" \
-            --window-pos 200 120 \
-            --window-size 600 300 \
-            --icon-size 100 \
-            --icon "Prayer Slides.app" 175 120 \
-            --hide-extension "Prayer Slides.app" \
-            --app-drop-link 425 120 \
-            "installers/Prayer-Slides-Mac.dmg" \
-            "packaged/Prayer Slides-darwin-x64/"
-        else
-          echo "create-dmg not available, using electron-builder"
-          npx electron-builder --mac dmg --publish=never
-        fi
+        echo "Skipping DMG creation - .app bundle is sufficient for distribution"
+        echo "The packaged .app file can be distributed directly or zipped"
       continue-on-error: true
       
     - name: Upload Mac artifacts
