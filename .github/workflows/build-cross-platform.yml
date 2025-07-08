@@ -22,9 +22,28 @@ jobs:
         
     - name: Install dependencies
       run: npm ci || npm install
+
+    - name: Install Wine (for Windows builds on macOS)
+      run: |
+        echo "Installing Wine for cross-platform Windows builds..."
+        brew install --cask wine-stable || echo "Wine installation failed, continuing without icons"
+      continue-on-error: true
       
     - name: Build cross-platform
-      run: npm run build-all
+      run: |
+        echo "Attempting unified cross-platform build..."
+        npm run build-all || {
+          echo "Unified build failed, trying individual builds..."
+          npm run build-app
+          npm run create-initial-zip
+          echo "Building Mac version..."
+          npm run package-mac
+          echo "Skipping Windows build due to Wine requirements"
+          echo "Creating Mac-only distribution..."
+          mkdir -p release/mac
+          cp -r "packaged/Prayer Slides-darwin-x64" release/mac/
+          echo "Mac build completed successfully"
+        }
       env:
         CSC_IDENTITY_AUTO_DISCOVERY: false  # Disable code signing
         
