@@ -113,7 +113,8 @@ async function packageForPlatform(platform, arch = 'x64') {
             arch: arch,
             out: 'packaged',
             overwrite: true,
-            icon: platform === 'win32' ? 'public/icon.ico' : 'public/icon.png',
+            // Skip icon for Mac to avoid format issues
+            ...(platform === 'win32' ? { icon: 'public/icon.png' } : {}),
             ignore: [
                 /node_modules\/(?!electron)/,
                 /\.next/,
