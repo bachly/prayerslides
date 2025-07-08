@@ -7,71 +7,147 @@ on:
       - 'v*'  # Trigger on version tags
 
 jobs:
-  build-cross-platform:
-    runs-on: macos-latest  # Use Mac to build both platforms
-    
+  build-windows:
+    runs-on: windows-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci || npm install
 
-    - name: Install Wine (for Windows builds on macOS)
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Windows
       run: |
-        echo "Installing Wine for cross-platform Windows builds..."
-        brew install --cask wine-stable || echo "Wine installation failed, continuing without icons"
-      continue-on-error: true
-      
-    - name: Build cross-platform
+        npm run build-app
+        npm run create-initial-zip
+        npm run package-win
+
+    - name: Upload Windows build
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-build
+        path: packaged/Prayer Slides-win32-x64/
+        retention-days: 1
+
+  build-mac:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build Mac
       run: |
-        echo "Attempting unified cross-platform build..."
-        npm run build-all || {
-          echo "Unified build failed, trying individual builds..."
-          npm run build-app
-          npm run create-initial-zip
-          echo "Building Mac version..."
-          npm run package-mac
-          echo "Skipping Windows build due to Wine requirements"
-          echo "Creating Mac-only distribution..."
-          mkdir -p release/mac
-          cp -r "packaged/Prayer Slides-darwin-x64" release/mac/
-          echo "Mac build completed successfully"
-        }
+        npm run build-app
+        npm run create-initial-zip
+        npm run package-mac
       env:
-        CSC_IDENTITY_AUTO_DISCOVERY: false  # Disable code signing
-        
+        CSC_IDENTITY_AUTO_DISCOVERY: false
+
+    - name: Create DMG
+      run: |
+        mkdir -p dist
+        hdiutil create -volname "Prayer Slides" -srcfolder "packaged/Prayer Slides-darwin-x64/" -ov -format UDZO "dist/Prayer-Slides-Mac.dmg"
+
+    - name: Upload Mac build
+      uses: actions/upload-artifact@v4
+      with:
+        name: mac-build
+        path: |
+          packaged/Prayer Slides-darwin-x64/
+          dist/Prayer-Slides-Mac.dmg
+        retention-days: 1
+
+  combine-builds:
+    needs: [build-windows, build-mac]
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download Windows build
+      uses: actions/download-artifact@v4
+      with:
+        name: windows-build
+        path: windows/
+
+    - name: Download Mac build
+      uses: actions/download-artifact@v4
+      with:
+        name: mac-build
+        path: mac-temp/
+
+    - name: Organize builds
+      run: |
+        mkdir -p Prayer-Slides-Cross-Platform/windows
+        mkdir -p Prayer-Slides-Cross-Platform/mac
+
+        # Copy Windows build
+        cp -r windows/* Prayer-Slides-Cross-Platform/windows/
+
+        # Copy Mac app bundle
+        cp -r mac-temp/packaged/* Prayer-Slides-Cross-Platform/mac/
+
+        # Copy DMG file to root
+        cp mac-temp/dist/*.dmg Prayer-Slides-Cross-Platform/ 2>/dev/null || echo "No DMG file found"
+
+        # Create README
+        cat > Prayer-Slides-Cross-Platform/README.md << 'EOF'
+        # Prayer Slides - Cross-Platform Distribution
+
+        ## Windows Installation
+        1. Navigate to the 'windows' folder
+        2. Run 'Prayer Slides.exe'
+        3. No installation required!
+
+        ## Mac Installation
+        ### Option 1: DMG Installer (Recommended)
+        1. Double-click 'Prayer-Slides-Mac.dmg'
+        2. Drag Prayer Slides.app to Applications folder
+
+        ### Option 2: App Bundle
+        1. Navigate to the 'mac' folder
+        2. Drag 'Prayer Slides.app' to your Applications folder
+        3. Right-click and select "Open" on first launch
+
+        ## Features
+        - Import/Export prayer slide data
+        - Version management with automatic backups
+        - Offline functionality
+        - Cross-platform compatibility
+
+        Built with Electron and Next.js
+        EOF
+
+    - name: Create cross-platform package
+      run: |
+        zip -r Prayer-Slides-Cross-Platform.zip Prayer-Slides-Cross-Platform/
+
     - name: Upload cross-platform package
       uses: actions/upload-artifact@v4
       with:
         name: prayer-slides-cross-platform
-        path: |
-          Prayer-Slides-Cross-Platform.zip
-          release/
+        path: Prayer-Slides-Cross-Platform.zip
         retention-days: 30
-        
-    - name: Show build results
+
+    - name: Show final results
       run: |
         echo "✅ Cross-platform build completed!"
-        echo "📦 Files created:"
-        ls -la *.zip || echo "No zip files"
-        ls -la release/ || echo "No release directory"
-        if [ -f "Prayer-Slides-Cross-Platform.zip" ]; then
-          echo "🎉 Cross-platform package: $(ls -lh Prayer-Slides-Cross-Platform.zip)"
-        fi
-        
-    - name: Create Release (if tag)
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          Prayer-Slides-Cross-Platform.zip
-        draft: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        echo "📦 Package contents:"
+        ls -la Prayer-Slides-Cross-Platform/
+        echo "📊 Package size:"
+        ls -lh Prayer-Slides-Cross-Platform.zip
