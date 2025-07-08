@@ -35,11 +35,31 @@ jobs:
         # Disable code signing for now (creates unsigned app)
         CSC_IDENTITY_AUTO_DISCOVERY: false
         
-    - name: Create DMG (optional)
-      run: |
-        echo "Skipping DMG creation - .app bundle is sufficient for distribution"
-        echo "The packaged .app file can be distributed directly or zipped"
+    - name: Install create-dmg
+      run: npm install -g create-dmg
       continue-on-error: true
+
+    - name: Create DMG file
+      run: |
+        mkdir -p dist
+        if command -v create-dmg &> /dev/null; then
+          echo "Creating DMG with create-dmg..."
+          create-dmg \
+            --volname "Prayer Slides Installer" \
+            --window-pos 200 120 \
+            --window-size 600 300 \
+            --icon-size 100 \
+            --icon "Prayer Slides.app" 175 120 \
+            --hide-extension "Prayer Slides.app" \
+            --app-drop-link 425 120 \
+            "dist/Prayer-Slides-Mac.dmg" \
+            "packaged/Prayer Slides-darwin-x64/"
+        else
+          echo "create-dmg failed, creating simple DMG..."
+          # Create a simple DMG using hdiutil (built into macOS)
+          hdiutil create -volname "Prayer Slides" -srcfolder "packaged/Prayer Slides-darwin-x64/" -ov -format UDZO "dist/Prayer-Slides-Mac.dmg"
+        fi
+      continue-on-error: false
       
     - name: Upload Mac artifacts
       uses: actions/upload-artifact@v4
@@ -47,9 +67,20 @@ jobs:
         name: prayer-slides-mac
         path: |
           packaged/Prayer Slides-darwin-x64/
-          installers/*.dmg
           dist/*.dmg
         retention-days: 30
+
+    - name: Show build results
+      run: |
+        echo "✅ Mac build completed!"
+        echo "📦 Files created:"
+        ls -la packaged/
+        ls -la dist/ || echo "No dist directory"
+        if [ -f "dist/Prayer-Slides-Mac.dmg" ]; then
+          echo "🎉 DMG file created: $(ls -lh dist/Prayer-Slides-Mac.dmg)"
+        else
+          echo "⚠️ No DMG file found"
+        fi
         
     - name: Create Release (if tag)
       if: startsWith(github.ref, 'refs/tags/')
