@@ -25,7 +25,10 @@ jobs:
       
     - name: Build application
       run: npm run build-app
-      
+
+    - name: Create initial data file
+      run: npm run create-initial-zip
+
     - name: Package for Mac
       run: npm run package-mac
       env:
