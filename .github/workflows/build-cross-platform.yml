@@ -1,4 +1,4 @@
-name: Build Cross-Platform
+name: Electron Build Cross-Platform
 
 on:
   workflow_dispatch:  # Manual trigger
@@ -7,7 +7,7 @@ on:
       - 'v*'  # Trigger on version tags
 
 jobs:
-  build-windows:
+  electron-build-windows:
     runs-on: windows-latest
 
     steps:
@@ -36,7 +36,7 @@ jobs:
         path: packaged/Prayer Slides-win32-x64/
         retention-days: 1
 
-  build-mac:
+  electron-build-mac:
     runs-on: macos-latest
 
     steps:
@@ -74,8 +74,8 @@ jobs:
           dist/Prayer-Slides-Mac.dmg
         retention-days: 1
 
-  combine-builds:
-    needs: [build-windows, build-mac]
+  electron-combine-builds:
+    needs: [electron-build-windows, electron-build-mac]
     runs-on: ubuntu-latest
 
     steps:

@@ -1,4 +1,4 @@
-name: Build Mac DMG
+name: Electron Build Mac DMG
 
 on:
   workflow_dispatch:  # Manual trigger
@@ -7,7 +7,7 @@ on:
       - 'v*'  # Trigger on version tags
 
 jobs:
-  build-mac:
+  electron-build-mac:
     runs-on: macos-latest
     
     steps:
