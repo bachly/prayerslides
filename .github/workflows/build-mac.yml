@@ -29,8 +29,8 @@ jobs:
     - name: Create initial data file
       run: npm run create-initial-zip
 
-    - name: Package for Mac
-      run: npm run package-mac
+    - name: Package for Mac (x64 only)
+      run: node scripts/package-app.js darwin x64
       env:
         # Disable code signing for now (creates unsigned app)
         CSC_IDENTITY_AUTO_DISCOVERY: false
