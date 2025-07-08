@@ -13,7 +13,7 @@ async function buildForMac() {
         
         // Step 1: Build the app
         console.log('1. Building application...');
-        execSync('npm run build-simple', { stdio: 'inherit' });
+        execSync('npm run build-app', { stdio: 'inherit' });
         
         // Step 2: Try electron-builder cross-compilation
         console.log('\n2. Attempting cross-platform build...');
@@ -74,7 +74,7 @@ async function createPortableMacPackage() {
         console.log('📦 Creating portable Mac package...');
         
         // Build the app first
-        execSync('npm run build-simple', { stdio: 'inherit' });
+        execSync('npm run build-app', { stdio: 'inherit' });
         
         // Create a Mac-compatible package structure
         const macDir = path.join(process.cwd(), 'mac-portable');
