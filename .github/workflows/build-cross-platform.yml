@@ -1,0 +1,58 @@
+name: Build Cross-Platform
+
+on:
+  workflow_dispatch:  # Manual trigger
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags
+
+jobs:
+  build-cross-platform:
+    runs-on: macos-latest  # Use Mac to build both platforms
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci || npm install
+      
+    - name: Build cross-platform
+      run: npm run build-all
+      env:
+        CSC_IDENTITY_AUTO_DISCOVERY: false  # Disable code signing
+        
+    - name: Upload cross-platform package
+      uses: actions/upload-artifact@v4
+      with:
+        name: prayer-slides-cross-platform
+        path: |
+          Prayer-Slides-Cross-Platform.zip
+          release/
+        retention-days: 30
+        
+    - name: Show build results
+      run: |
+        echo "✅ Cross-platform build completed!"
+        echo "📦 Files created:"
+        ls -la *.zip || echo "No zip files"
+        ls -la release/ || echo "No release directory"
+        if [ -f "Prayer-Slides-Cross-Platform.zip" ]; then
+          echo "🎉 Cross-platform package: $(ls -lh Prayer-Slides-Cross-Platform.zip)"
+        fi
+        
+    - name: Create Release (if tag)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          Prayer-Slides-Cross-Platform.zip
+        draft: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

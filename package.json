@@ -22,7 +22,8 @@
     "create-initial-zip": "node scripts/create-initial-zip.js",
     "dist": "npx electron-builder",
     "dist-win": "npx electron-builder --win",
-    "dist-mac": "npx electron-builder --mac"
+    "dist-mac": "npx electron-builder --mac",
+    "build-all": "node scripts/build-all-platforms.js"
   },
   "dependencies": {
     "@tabler/icons-react": "^2.20.0",
