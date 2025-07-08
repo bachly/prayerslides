@@ -116,7 +116,7 @@ async function packageForPlatform(platform, arch = 'x64') {
             // Skip icon for Mac to avoid format issues
             ...(platform === 'win32' ? { icon: 'public/icon.png' } : {}),
             ignore: [
-                // Use same aggressive exclusions as Windows
+                // Use EXACT same patterns as Windows build
                 /^\/node_modules\/(?!(electron|adm-zip))/,
                 /^\/\.next/,
                 /^\/src/,
@@ -135,30 +135,16 @@ async function packageForPlatform(platform, arch = 'x64') {
                 /^\/dist/,
                 /^\/release/,
                 /^\/packaged/,
-                /^\/debug-packaged/,
-                /^\/production-packaged/,
-                /^\/mac-portable/,
                 /^\/installers/,
+                /^\/debug-packaged/,
                 /^\/\.vscode/,
-                /^\/\.env/,
-                /^\/\.github/,
-                /^\/BUILD-INSTRUCTIONS\.md/,
-                // Exclude ALL image files except icons
-                /^\/public\/img\//,
-                // Exclude other large files
-                /\.log$/,
-                /\.tmp$/,
-                /\.cache/
+                /^\/\.env/
             ],
             extraResource: [
                 'prayer-slides-data.zip'
             ],
-            // Aggressive optimization options
-            asar: true,  // Compress app files into archive
-            prune: true, // Remove dev dependencies
-            derefSymlinks: false, // Don't follow symlinks
-            junk: true,  // Ignore junk files
-            quiet: false // Show what's being packaged
+            // Use same simple options as Windows (no ASAR compression)
+            electronVersion: '22.3.27'
         };
         
         const appPaths = await packager(options);
