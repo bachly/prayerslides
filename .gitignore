@@ -6,7 +6,7 @@ yarn-error.log*
 
 # Node dependencies
 node_modules/
-package-lock.json
+# Keep package-lock.json for reproducible builds
 
 # macOS system files
 .DS_Store
