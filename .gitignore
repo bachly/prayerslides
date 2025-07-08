@@ -64,11 +64,11 @@ installers/
 .electron-gyp/
 .electron/
 
-# Large data files and zips
-*.zip
-prayer-slides-data.zip
+# Large data files and zips (but allow essential data)
 prayer-slides-update-sample.zip
 *.asar
+# Allow prayer-slides-data.zip (essential for app)
+# !prayer-slides-data.zip
 
 # Temporary files
 *.tmp
