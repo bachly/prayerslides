@@ -1,22 +1,111 @@
+# Logs
 *.log
-node_modules
-.DS_Store
-.history
-.next
-out
-.env
-# Local Netlify folder
-.netlify
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Electron build outputs
+# Node dependencies
+node_modules/
+package-lock.json
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor folders and files
+.history
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Next.js build outputs
+.next/
+out/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Local Netlify folder
+.netlify/
+
+# Electron build outputs and packages
 dist/
+release/
+packaged/
+production-packaged/
+debug-packaged/
+mac-portable/
+manual-dist/
+installers/
+
+# Electron executables and installers
 *.exe
 *.dmg
 *.AppImage
 *.deb
 *.rpm
 *.snap
+*.msi
+*.pkg
 
 # Electron cache
 .electron-gyp/
 .electron/
+
+# Large data files and zips
+*.zip
+prayer-slides-data.zip
+prayer-slides-update-sample.zip
+*.asar
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.parcel-cache/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Yarn Integrity file
+.yarn-integrity
