@@ -89,7 +89,6 @@
           ]
         }
       ],
-      "icon": "public/icon.png",
       "artifactName": "${productName}-${version}-mac-${arch}.${ext}"
     },
     "win": {
