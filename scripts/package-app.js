@@ -13,7 +13,7 @@ async function packageApp() {
         
         // Step 1: Build the app
         console.log('\n1. Building application...');
-        execSync('npm run build-simple', { stdio: 'inherit' });
+        execSync('npm run build-app', { stdio: 'inherit' });
         
         // Step 2: Package with electron-packager
         console.log('\n2. Packaging application...');
@@ -104,7 +104,7 @@ async function packageForPlatform(platform, arch = 'x64') {
         console.log(`📦 Packaging for ${platform}-${arch}...`);
         
         // Build first
-        execSync('npm run build-simple', { stdio: 'inherit' });
+        execSync('npm run build-app', { stdio: 'inherit' });
         
         const options = {
             dir: '.',
