@@ -24,13 +24,18 @@ function createInitialZip() {
         // Create zip file
         const zip = new AdmZip();
         
-        // Add only essential files (not large images)
-        const essentialFiles = ['files', 'icon.png', 'icon.svg'];
+        // Add only essential files (minimal set)
+        const essentialFiles = ['files/couples.json', 'icon.png'];
 
         essentialFiles.forEach(item => {
             const itemPath = path.join(publicDir, item);
             if (fs.existsSync(itemPath)) {
-                if (fs.statSync(itemPath).isDirectory()) {
+                if (item.includes('/')) {
+                    // Handle nested files like 'files/couples.json'
+                    const dir = path.dirname(item);
+                    const filename = path.basename(item);
+                    zip.addLocalFile(itemPath, dir + '/', filename);
+                } else if (fs.statSync(itemPath).isDirectory()) {
                     zip.addLocalFolder(itemPath, item);
                 } else {
                     zip.addLocalFile(itemPath, '', item);
