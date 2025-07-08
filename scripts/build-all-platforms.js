@@ -42,7 +42,7 @@ async function buildAllPlatforms() {
 
 async function buildWindows() {
     console.log('📦 Building Windows executable...');
-    
+
     const options = {
         dir: '.',
         name: 'Prayer Slides',
@@ -50,12 +50,12 @@ async function buildWindows() {
         arch: 'x64',
         out: 'dist-temp',
         overwrite: true,
-        icon: 'public/icon.png',
+        // Remove icon to avoid Wine requirement
         electronVersion: '22.3.27',
         ignore: getOptimizedIgnorePatterns(),
         extraResource: ['prayer-slides-data.zip']
     };
-    
+
     const appPaths = await packager(options);
     console.log('✅ Windows build completed:', appPaths[0]);
     return appPaths[0];
