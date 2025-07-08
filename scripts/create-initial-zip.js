@@ -24,8 +24,19 @@ function createInitialZip() {
         // Create zip file
         const zip = new AdmZip();
         
-        // Add all files from public directory
-        zip.addLocalFolder(publicDir, '');
+        // Add only essential files (not large images)
+        const essentialFiles = ['files', 'icon.png', 'icon.svg'];
+
+        essentialFiles.forEach(item => {
+            const itemPath = path.join(publicDir, item);
+            if (fs.existsSync(itemPath)) {
+                if (fs.statSync(itemPath).isDirectory()) {
+                    zip.addLocalFolder(itemPath, item);
+                } else {
+                    zip.addLocalFile(itemPath, '', item);
+                }
+            }
+        });
         
         // Write zip file
         zip.writeZip(outputZip);

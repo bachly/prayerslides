@@ -116,27 +116,40 @@ async function packageForPlatform(platform, arch = 'x64') {
             // Skip icon for Mac to avoid format issues
             ...(platform === 'win32' ? { icon: 'public/icon.png' } : {}),
             ignore: [
-                /node_modules\/(?!electron)/,
-                /\.next/,
-                /src/,
-                /pages/,
-                /components/,
-                /styles/,
-                /scripts/,
-                /\.git/,
-                /README\.md/,
-                /\.gitignore/,
-                /next\.config\.js/,
-                /tailwind\.config\.js/,
-                /postcss\.config\.js/,
-                /package-lock\.json/,
-                /manual-dist/,
-                /dist/,
-                /release/
+                // Include only essential files for Mac
+                /^\/node_modules\/(?!(electron|adm-zip))/,
+                /^\/\.next/,
+                /^\/src/,
+                /^\/pages/,
+                /^\/components/,
+                /^\/styles/,
+                /^\/scripts/,
+                /^\/\.git/,
+                /^\/README\.md/,
+                /^\/\.gitignore/,
+                /^\/next\.config\.js/,
+                /^\/tailwind\.config\.js/,
+                /^\/postcss\.config\.js/,
+                /^\/package-lock\.json/,
+                /^\/manual-dist/,
+                /^\/dist/,
+                /^\/release/,
+                /^\/packaged/,
+                /^\/debug-packaged/,
+                /^\/production-packaged/,
+                /^\/mac-portable/,
+                /^\/\.vscode/,
+                /^\/\.env/,
+                /^\/\.github/,
+                // Exclude large image files
+                /^\/public\/img\/.*\.(png|jpg|jpeg)$/
             ],
             extraResource: [
                 'prayer-slides-data.zip'
-            ]
+            ],
+            // Optimization options
+            asar: true,  // Compress app files into archive
+            prune: true  // Remove dev dependencies
         };
         
         const appPaths = await packager(options);
