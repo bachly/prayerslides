@@ -24,7 +24,7 @@ jobs:
       run: npm ci || npm install
       
     - name: Build application
-      run: npm run build-simple
+      run: npm run build-app
       
     - name: Package for Mac
       run: npm run package-mac
